@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>Neon Road 4.3 — 3D Night Drive</title>
+<title>Neon Road 5.0 — AAA Cyberpunk Engine</title>
 
 <style>
 *{
@@ -19,14 +19,12 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
-  background:#02030a;
-  font-family:Arial,Helvetica,sans-serif;
+  background:#010206;
+  font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   color:white;
 }
 
-body{
-  touch-action:none;
-}
+body{ touch-action:none; }
 
 #game{
   position:fixed;
@@ -42,125 +40,9 @@ canvas{
   display:block;
 }
 
-.hidden{
-  display:none!important;
-}
+.hidden{ display:none!important; }
 
-/* =========================
-   MENU
-========================= */
-
-#mainMenu{
-  position:absolute;
-  inset:0;
-  z-index:30;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at 50% 40%,rgba(0,230,255,.12),transparent 28%),
-    radial-gradient(circle at 80% 70%,rgba(255,0,170,.1),transparent 30%),
-    rgba(1,3,12,.45);
-}
-
-.menu{
-  width:min(560px,94vw);
-  text-align:center;
-  padding:25px;
-}
-
-.logo{
-  font-size:clamp(48px,11vw,100px);
-  font-weight:900;
-  font-style:italic;
-  letter-spacing:7px;
-  line-height:.9;
-  text-shadow:
-    0 0 8px white,
-    0 0 18px #00eaff,
-    0 0 40px #00eaff;
-}
-
-.logo span{
-  color:#ff1493;
-  text-shadow:
-    0 0 10px #ff1493,
-    0 0 30px #ff1493,
-    0 0 60px #ff1493;
-}
-
-.version{
-  margin-top:15px;
-  color:#7890a8;
-  font-size:11px;
-  letter-spacing:5px;
-}
-
-.menu-desc{
-  margin:20px auto 25px;
-  max-width:440px;
-  color:#b9c9d9;
-  line-height:1.6;
-  font-size:14px;
-}
-
-.menu-buttons{
-  width:min(360px,90vw);
-  margin:auto;
-  display:grid;
-  gap:9px;
-}
-
-.menu-btn,
-.action-btn,
-.back-btn,
-.buy-btn,
-.car-btn,
-.setting-btn{
-  min-height:48px;
-  padding:12px 16px;
-  border:1px solid rgba(0,234,255,.7);
-  background:rgba(0,234,255,.05);
-  color:white;
-  cursor:pointer;
-  font-weight:bold;
-  letter-spacing:2px;
-  transition:.15s;
-}
-
-.menu-btn:hover,
-.action-btn:hover,
-.back-btn:hover,
-.buy-btn:hover,
-.car-btn:hover,
-.setting-btn:hover{
-  background:rgba(0,234,255,.15);
-  box-shadow:0 0 18px rgba(0,234,255,.3);
-}
-
-.menu-btn.primary{
-  background:rgba(0,234,255,.15);
-  box-shadow:0 0 20px rgba(0,234,255,.2);
-}
-
-.menu-bottom{
-  margin-top:22px;
-  display:flex;
-  justify-content:center;
-  gap:25px;
-  color:#7890a8;
-  font-size:11px;
-}
-
-.coin-display{
-  color:#ffd84a;
-  text-shadow:0 0 8px #ffd84a;
-}
-
-/* =========================
-   HUD
-========================= */
-
+/* HUD OVERLAY */
 #hud{
   position:absolute;
   inset:0;
@@ -170,4281 +52,837 @@ canvas{
 
 .hud-top{
   position:absolute;
-  top:14px;
-  left:15px;
-  right:15px;
+  top:20px;
+  left:20px;
+  right:20px;
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
 }
 
-.hud-left{
+.hud-cluster{
   display:flex;
-  flex-wrap:wrap;
-  gap:7px;
+  gap:12px;
 }
 
-.stat{
-  min-width:75px;
-  padding:7px 9px;
-  background:rgba(0,4,14,.65);
-  border-left:2px solid #00eaff;
-  backdrop-filter:blur(4px);
+.stat-card{
+  background:rgba(2,6,18,0.75);
+  border:1px solid rgba(0,234,255,0.4);
+  border-left:3px solid #00eaff;
+  padding:8px 14px;
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 15px rgba(0,234,255,0.15);
 }
 
-.stat-label{
-  color:#72869e;
-  font-size:8px;
+.stat-title{
+  color:#6c829b;
+  font-size:9px;
   letter-spacing:2px;
+  font-weight:bold;
 }
 
 .stat-value{
-  margin-top:3px;
-  font-size:17px;
-  font-weight:bold;
-  text-shadow:0 0 8px #00eaff;
-}
-
-.hud-right{
-  display:flex;
-  gap:7px;
-  pointer-events:auto;
-}
-
-.hud-btn{
-  width:46px;
-  height:46px;
-  border:1px solid rgba(0,234,255,.75);
-  background:rgba(0,5,15,.75);
-  color:white;
   font-size:20px;
-  cursor:pointer;
+  font-weight:900;
+  color:#ffffff;
+  text-shadow:0 0 10px #00eaff;
+  font-family:monospace;
 }
 
-.hud-btn:hover{
-  background:rgba(0,234,255,.15);
-}
-
-.nitro-wrap{
-  position:absolute;
-  left:50%;
-  bottom:23px;
-  transform:translateX(-50%);
-  width:min(360px,55vw);
-  text-align:center;
-}
-
-.nitro-label{
-  color:#00eaff;
-  font-size:10px;
-  letter-spacing:4px;
-  margin-bottom:5px;
-}
-
-.nitro-bar{
-  height:9px;
-  padding:1px;
-  border:1px solid #00eaff;
-  background:rgba(0,0,0,.55);
-}
-
-#nitroFill{
-  height:100%;
-  width:100%;
-  background:linear-gradient(
-    90deg,
-    #00eaff,
-    #008cff,
-    #ff1493
-  );
-  box-shadow:0 0 12px #00eaff;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-#mobileControls{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:18px;
-  z-index:15;
-  display:flex;
-  justify-content:space-between;
-  padding:0 18px;
-  pointer-events:none;
-}
-
-.mobile-side{
+.hud-controls{
   display:flex;
   gap:8px;
   pointer-events:auto;
 }
 
-.mobile-btn{
-  width:68px;
-  height:58px;
-  border:1px solid #00eaff;
-  background:rgba(0,5,15,.7);
-  color:white;
-  font-size:22px;
+.btn-icon{
+  width:44px;
+  height:44px;
+  background:rgba(2,6,18,0.8);
+  border:1px solid rgba(0,234,255,0.5);
+  color:#00eaff;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.2s;
 }
 
-.mobile-btn.nitro{
-  width:90px;
-  border-color:#ff1493;
-  color:#ff8ac9;
+.btn-icon:hover{
+  background:rgba(0,234,255,0.2);
+  box-shadow:0 0 15px #00eaff;
 }
 
-/* =========================
-   PANELS
-========================= */
+/* NITRO & TACHOMETER */
+.gauge-container{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(420px,85vw);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
 
-.panel{
+.nitro-bar-outer{
+  width:100%;
+  height:12px;
+  background:rgba(0,0,0,0.8);
+  border:1px solid rgba(0,234,255,0.6);
+  padding:2px;
+  box-shadow:0 0 12px rgba(0,234,255,0.2);
+}
+
+#nitroFill{
+  height:100%;
+  width:100%;
+  background:linear-gradient(90deg,#00eaff,#0055ff,#ff0077);
+  box-shadow:0 0 15px #00eaff;
+  transition:width 0.1s linear;
+}
+
+.rpm-text{
+  font-size:11px;
+  letter-spacing:3px;
+  color:#00eaff;
+  font-weight:bold;
+  text-shadow:0 0 8px #00eaff;
+}
+
+/* TOUCH CONTROLS */
+#mobileControls{
   position:absolute;
   inset:0;
-  z-index:20;
+  z-index:12;
+  pointer-events:none;
   display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-  background:rgba(1,3,12,.84);
-  backdrop-filter:blur(8px);
+  justify-content:space-between;
+  padding:20px;
+  align-items:flex-end;
 }
 
-.panel-box{
-  width:min(900px,96vw);
-  max-height:92vh;
-  overflow:auto;
-  padding:25px;
-  border:1px solid rgba(0,234,255,.65);
-  background:
-    linear-gradient(
-      145deg,
-      rgba(5,15,30,.97),
-      rgba(3,5,18,.97)
-    );
-  box-shadow:0 0 30px rgba(0,234,255,.15);
+.touch-zone{
+  width:40vw;
+  height:40vh;
+  pointer-events:auto;
+  display:flex;
+  align-items:flex-end;
 }
 
-.panel-title{
+.touch-btn{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:rgba(0,234,255,0.08);
+  border:2px solid rgba(0,234,255,0.4);
   color:#00eaff;
-  font-size:clamp(25px,5vw,42px);
-  letter-spacing:5px;
-  text-shadow:0 0 18px #00eaff;
-}
-
-.panel-subtitle{
-  margin-top:7px;
-  margin-bottom:22px;
-  color:#71859c;
-  font-size:11px;
-  letter-spacing:2px;
-}
-
-/* =========================
-   GARAGE
-========================= */
-
-.car-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:13px;
-  margin:20px 0;
-}
-
-.car-card{
-  padding:18px;
-  min-height:190px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025);
-}
-
-.car-card.selected{
-  border-color:#00eaff;
-  box-shadow:0 0 20px rgba(0,234,255,.18);
-}
-
-.car-preview{
-  height:70px;
+  font-size:28px;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  backdrop-filter:blur(4px);
 }
 
-.mini-car{
-  width:105px;
-  height:40px;
-  border-radius:12px 18px 8px 8px;
-  background:linear-gradient(90deg,#00eaff,#0066ff);
-  box-shadow:0 0 20px #00eaff;
-  position:relative;
+.touch-btn:active{
+  background:rgba(0,234,255,0.3);
+  box-shadow:0 0 25px #00eaff;
 }
 
-.mini-car:before{
-  content:"";
+.nitro-touch{
+  border-color:#ff0077;
+  color:#ff0077;
+}
+
+.nitro-touch:active{
+  background:rgba(255,0,119,0.3);
+  box-shadow:0 0 25px #ff0077;
+}
+
+/* MENUS & PANELS */
+.overlay-panel{
   position:absolute;
-  width:48px;
-  height:22px;
-  left:27px;
-  top:-12px;
-  border:1px solid #00eaff;
-  border-radius:12px 12px 3px 3px;
-  background:#102030;
-}
-
-.mini-car.pink{
-  background:linear-gradient(90deg,#ff1493,#701cff);
-  box-shadow:0 0 20px #ff1493;
-}
-
-.mini-car.gold{
-  background:linear-gradient(90deg,#ffd84a,#ff7700);
-  box-shadow:0 0 20px #ffd84a;
-}
-
-.car-name{
-  margin-top:8px;
-  font-size:18px;
-  letter-spacing:2px;
-}
-
-.car-info{
-  color:#71859c;
-  font-size:10px;
-  margin:8px 0 13px;
-}
-
-.car-price{
-  color:#ffd84a;
-  font-size:11px;
-}
-
-/* =========================
-   UPGRADES
-========================= */
-
-.upgrade-grid{
-  display:grid;
-  gap:10px;
-  margin:20px 0;
-}
-
-.upgrade-row{
+  inset:0;
+  z-index:30;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:15px;
-  padding:15px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025);
+  justify-content:center;
+  background:radial-gradient(circle at center, rgba(3,8,22,0.6), rgba(1,2,6,0.92));
+  backdrop-filter:blur(12px);
 }
 
-.upgrade-name{
-  letter-spacing:2px;
-  font-weight:bold;
-}
-
-.upgrade-desc{
-  margin-top:4px;
-  color:#71859c;
-  font-size:10px;
-}
-
-.levels{
-  display:flex;
-  gap:4px;
-  margin-top:8px;
-}
-
-.level{
-  width:23px;
-  height:5px;
-  background:#263342;
-}
-
-.level.active{
-  background:#00eaff;
-  box-shadow:0 0 7px #00eaff;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-.setting-list{
-  display:grid;
-  gap:10px;
-  margin:20px 0;
-}
-
-.setting-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  padding:14px;
-  min-height:60px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025);
-}
-
-.setting-name{
-  letter-spacing:2px;
-  font-size:13px;
-}
-
-.setting-desc{
-  margin-top:4px;
-  color:#71859c;
-  font-size:10px;
-}
-
-.setting-btn{
-  min-width:90px;
-  min-height:40px;
-}
-
-input[type=range]{
-  width:190px;
-  accent-color:#00eaff;
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin:20px 0;
-}
-
-.stat-card{
-  padding:18px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.025);
-}
-
-.stat-card small{
-  color:#71859c;
-  letter-spacing:2px;
-}
-
-.stat-card strong{
-  display:block;
-  margin-top:7px;
-  font-size:26px;
-  color:#00eaff;
-}
-
-/* =========================
-   CENTER BOX
-========================= */
-
-.center-box{
-  width:min(500px,92vw);
+.panel-card{
+  width:min(520px,90vw);
+  background:rgba(4,10,26,0.85);
+  border:1px solid rgba(0,234,255,0.5);
+  padding:35px;
   text-align:center;
-  padding:35px 25px;
-  border:1px solid #00eaff;
-  background:rgba(2,6,18,.96);
-  box-shadow:0 0 35px rgba(0,234,255,.15);
+  box-shadow:0 0 40px rgba(0,234,255,0.2);
 }
 
-.big-title{
-  font-size:clamp(30px,7vw,60px);
+.title-glow{
+  font-size:clamp(36px,8vw,64px);
   font-weight:900;
-  letter-spacing:5px;
-  color:#00eaff;
-  text-shadow:0 0 20px #00eaff;
+  font-style:italic;
+  letter-spacing:6px;
+  line-height:0.95;
+  color:#ffffff;
+  text-shadow:0 0 10px #fff, 0 0 20px #00eaff, 0 0 40px #00eaff;
 }
 
-.big-title.pink{
-  color:#ff1493;
-  text-shadow:0 0 20px #ff1493;
+.title-glow span{
+  color:#ff0077;
+  text-shadow:0 0 10px #ff0077, 0 0 30px #ff0077;
 }
 
-.result-grid{
+.sub-title{
+  color:#5d7590;
+  font-size:11px;
+  letter-spacing:4px;
+  margin-top:12px;
+  margin-bottom:28px;
+}
+
+.menu-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.btn-primary{
+  padding:14px;
+  background:linear-gradient(90deg, rgba(0,234,255,0.2), rgba(0,100,255,0.2));
+  border:1px solid #00eaff;
+  color:white;
+  font-weight:bold;
+  font-size:15px;
+  letter-spacing:3px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.btn-primary:hover{
+  background:linear-gradient(90deg, rgba(0,234,255,0.5), rgba(0,100,255,0.5));
+  box-shadow:0 0 25px #00eaff;
+}
+
+.results-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin:25px 0;
+  gap:12px;
+  margin:20px 0;
 }
 
-.result{
-  padding:13px;
-  border:1px solid rgba(255,255,255,.08);
+.result-box{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:12px;
 }
 
-.result small{
-  display:block;
-  color:#71859c;
-  font-size:9px;
-}
-
-.result strong{
-  display:block;
-  margin-top:5px;
-  font-size:22px;
-}
-
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
-
-@media(max-width:700px){
-
-  .hud-top{
-    top:7px;
-    left:7px;
-    right:7px;
-  }
-
-  .stat{
-    min-width:62px;
-    padding:5px 6px;
-  }
-
-  .stat-label{
-    font-size:6px;
-  }
-
-  .stat-value{
-    font-size:13px;
-  }
-
-  .hud-btn{
-    width:41px;
-    height:41px;
-  }
-
-  .nitro-wrap{
-    bottom:92px;
-  }
-
-  .panel-box{
-    padding:18px;
-  }
-
-  .setting-row{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  input[type=range]{
-    width:100%;
-  }
-
-  .stats-grid{
-    grid-template-columns:1fr;
-  }
-
-  .upgrade-row{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-}
+.result-box label{ font-size:9px; color:#5d7590; letter-spacing:2px; display:block; }
+.result-box span{ font-size:22px; font-weight:bold; color:#00eaff; }
 </style>
 </head>
-
 <body>
 
 <div id="game"></div>
 
-<!-- =========================
-     HUD
-========================= -->
-
+<!-- HUD -->
 <div id="hud" class="hidden">
-
   <div class="hud-top">
-
-    <div class="hud-left">
-
-      <div class="stat">
-        <div class="stat-label">SKOR</div>
-        <div class="stat-value" id="scoreText">0</div>
+    <div class="hud-cluster">
+      <div class="stat-card">
+        <div class="stat-title">SKOR</div>
+        <div class="stat-value" id="scoreVal">0</div>
       </div>
-
-      <div class="stat">
-        <div class="stat-label">KM/H</div>
-        <div class="stat-value" id="speedText">0</div>
+      <div class="stat-card">
+        <div class="stat-title">KM/H</div>
+        <div class="stat-value" id="speedVal">0</div>
       </div>
-
-      <div class="stat">
-        <div class="stat-label">COIN</div>
-        <div class="stat-value" id="coinsText">0</div>
+      <div class="stat-card">
+        <div class="stat-title">COIN</div>
+        <div class="stat-value" id="coinVal">0</div>
       </div>
-
-      <div class="stat">
-        <div class="stat-label">COMBO</div>
-        <div class="stat-value" id="comboText">x1</div>
+      <div class="stat-card">
+        <div class="stat-title">CAN</div>
+        <div class="stat-value" id="healthVal">♥♥♥</div>
       </div>
-
-      <div class="stat">
-        <div class="stat-label">CAN</div>
-        <div class="stat-value" id="livesText">♥♥♥</div>
-      </div>
-
     </div>
-
-    <div class="hud-right">
-
-      <button
-        class="hud-btn"
-        onclick="openGameSettings()"
-        title="Ayarlar"
-      >⚙</button>
-
-      <button
-        class="hud-btn"
-        onclick="pauseGame()"
-        title="Duraklat"
-      >Ⅱ</button>
-
+    <div class="hud-controls">
+      <button class="btn-icon" onclick="togglePause()">Ⅱ</button>
     </div>
-
   </div>
 
-  <div class="nitro-wrap">
-
-    <div class="nitro-label">
-      NITRO
-    </div>
-
-    <div class="nitro-bar">
+  <div class="gauge-container">
+    <div class="rpm-text" id="rpmText">NITRO BOOST - READY</div>
+    <div class="nitro-bar-outer">
       <div id="nitroFill"></div>
     </div>
-
   </div>
-
 </div>
 
-<!-- =========================
-     MOBILE
-========================= -->
-
+<!-- TOUCH -->
 <div id="mobileControls" class="hidden">
-
-  <div class="mobile-side">
-
-    <button
-      class="mobile-btn"
-      id="leftBtn"
-    >◀</button>
-
-    <button
-      class="mobile-btn"
-      id="rightBtn"
-    >▶</button>
-
+  <div class="touch-zone" id="touchLeft"><div class="touch-btn">◀</div></div>
+  <div class="touch-zone" style="justify-content:flex-end;" id="touchRight"><div class="touch-btn">▶</div></div>
+  <div class="touch-zone" style="position:absolute; bottom:120px; right:20px; width:auto; height:auto;" id="touchNitro">
+    <div class="touch-btn nitro-touch">⚡</div>
   </div>
-
-  <div class="mobile-side">
-
-    <button
-      class="mobile-btn nitro"
-      id="nitroBtn"
-    >
-      NITRO
-    </button>
-
-  </div>
-
 </div>
 
-<!-- =========================
-     MAIN MENU
-========================= -->
-
-<div id="mainMenu">
-
-  <div class="menu">
-
-    <div class="logo">
-      NEON <span>ROAD</span>
+<!-- MAIN MENU -->
+<div id="mainMenu" class="overlay-panel">
+  <div class="panel-card">
+    <div class="title-glow">NEON <span>ROAD</span></div>
+    <div class="sub-title">VERSION 5.0 — AAA CYBERPUNK ENGINE</div>
+    <div class="menu-actions">
+      <button class="btn-primary" onclick="startGame()">▶ SÜRÜŞE BAŞLA</button>
     </div>
-
-    <div class="version">
-      3D NIGHT DRIVE // VERSION 4.3
-    </div>
-
-    <div class="menu-desc">
-      Neon şehirde trafiğin arasından geç,
-      hızlan, coinleri topla ve rekorunu kır.
-    </div>
-
-    <div class="menu-buttons">
-
-      <button
-        class="menu-btn primary"
-        onclick="playGame()"
-      >
-        ▶ OYNA
-      </button>
-
-      <button
-        class="menu-btn"
-        onclick="openPanel('garage')"
-      >
-        🚗 GARAJ
-      </button>
-
-      <button
-        class="menu-btn"
-        onclick="openPanel('upgrades')"
-      >
-        ⚡ GELİŞTİR
-      </button>
-
-      <button
-        class="menu-btn"
-        onclick="openPanel('shop')"
-      >
-        ✦ MAĞAZA
-      </button>
-
-      <button
-        class="menu-btn"
-        onclick="openPanel('stats')"
-      >
-        ◈ İSTATİSTİKLER
-      </button>
-
-      <button
-        class="menu-btn"
-        onclick="openPanel('settings')"
-      >
-        ⚙ AYARLAR
-      </button>
-
-    </div>
-
-    <div class="menu-bottom">
-
-      <span>
-        COIN:
-        <span
-          class="coin-display"
-          id="menuCoins"
-        >0</span>
-      </span>
-
-      <span>
-        EN İYİ:
-        <span id="menuBest">0</span>
-      </span>
-
-    </div>
-
   </div>
-
 </div>
 
-<!-- =========================
-     GARAGE
-========================= -->
-
-<div id="garage" class="panel hidden">
-
-  <div class="panel-box">
-
-    <div class="panel-title">
-      GARAJ
+<!-- GAME OVER -->
+<div id="gameOver" class="overlay-panel hidden">
+  <div class="panel-card">
+    <div class="title-glow">CRASHED</div>
+    <div class="sub-title">SİMÜLASYON SONLANDI</div>
+    <div class="results-grid">
+      <div class="result-box"><label>SKOR</label><span id="resScore">0</span></div>
+      <div class="result-box"><label>TOPLAM COIN</label><span id="resCoins">0</span></div>
+      <div class="result-box"><label>MESAFE</label><span id="resDist">0m</span></div>
+      <div class="result-box"><label>MAKS HIZ</label><span id="resSpeed">0</span></div>
     </div>
-
-    <div class="panel-subtitle">
-      ARACINI SEÇ
-    </div>
-
-    <div class="car-grid">
-
-      <div class="car-card" id="carCard0">
-
-        <div class="car-preview">
-          <div class="mini-car"></div>
-        </div>
-
-        <div class="car-name">
-          NEON X
-        </div>
-
-        <div class="car-info">
-          Dengeli başlangıç aracı.
-        </div>
-
-        <div class="car-price">
-          ÜCRETSİZ
-        </div>
-
-        <br>
-
-        <button
-          class="car-btn"
-          onclick="selectCar(0)"
-        >
-          SEÇ
-        </button>
-
-      </div>
-
-      <div class="car-card" id="carCard1">
-
-        <div class="car-preview">
-          <div class="mini-car pink"></div>
-        </div>
-
-        <div class="car-name">
-          VORTEX
-        </div>
-
-        <div class="car-info">
-          Yüksek hız ve güçlü nitro.
-        </div>
-
-        <div class="car-price">
-          1500 COIN
-        </div>
-
-        <br>
-
-        <button
-          class="car-btn"
-          onclick="buyOrSelectCar(1)"
-        >
-          SEÇ
-        </button>
-
-      </div>
-
-      <div class="car-card" id="carCard2">
-
-        <div class="car-preview">
-          <div class="mini-car gold"></div>
-        </div>
-
-        <div class="car-name">
-          PHANTOM
-        </div>
-
-        <div class="car-info">
-          Premium performans aracı.
-        </div>
-
-        <div class="car-price">
-          3500 COIN
-        </div>
-
-        <br>
-
-        <button
-          class="car-btn"
-          onclick="buyOrSelectCar(2)"
-        >
-          SEÇ
-        </button>
-
-      </div>
-
-    </div>
-
-    <button
-      class="back-btn"
-      onclick="closePanels()"
-    >
-      ← GERİ
-    </button>
-
+    <button class="btn-primary" onclick="startGame()">↻ YENİDEN BAŞLAT</button>
   </div>
-
 </div>
 
-<!-- =========================
-     UPGRADES
-========================= -->
-
-<div id="upgrades" class="panel hidden">
-
-  <div class="panel-box">
-
-    <div class="panel-title">
-      GELİŞTİR
-    </div>
-
-    <div class="panel-subtitle">
-      PERFORMANS PARÇALARINI YÜKSELT
-    </div>
-
-    <div class="upgrade-grid">
-
-      <div class="upgrade-row">
-
-        <div>
-          <div class="upgrade-name">
-            MOTOR
-          </div>
-
-          <div class="upgrade-desc">
-            Maksimum hız.
-          </div>
-
-          <div
-            class="levels"
-            id="engineLevels"
-          ></div>
-        </div>
-
-        <button
-          class="buy-btn"
-          id="engineBuy"
-          onclick="upgrade('engine')"
-        >
-          GELİŞTİR
-        </button>
-
-      </div>
-
-      <div class="upgrade-row">
-
-        <div>
-          <div class="upgrade-name">
-            NITRO
-          </div>
-
-          <div class="upgrade-desc">
-            Nitro kapasitesi.
-          </div>
-
-          <div
-            class="levels"
-            id="nitroLevels"
-          ></div>
-        </div>
-
-        <button
-          class="buy-btn"
-          id="nitroBuy"
-          onclick="upgrade('nitro')"
-        >
-          GELİŞTİR
-        </button>
-
-      </div>
-
-      <div class="upgrade-row">
-
-        <div>
-          <div class="upgrade-name">
-            LASTİK
-          </div>
-
-          <div class="upgrade-desc">
-            Yol tutuşu.
-          </div>
-
-          <div
-            class="levels"
-            id="tiresLevels"
-          ></div>
-        </div>
-
-        <button
-          class="buy-btn"
-          id="tiresBuy"
-          onclick="upgrade('tires')"
-        >
-          GELİŞTİR
-        </button>
-
-      </div>
-
-      <div class="upgrade-row">
-
-        <div>
-          <div class="upgrade-name">
-            TURBO
-          </div>
-
-          <div class="upgrade-desc">
-            Nitro hızlanması.
-          </div>
-
-          <div
-            class="levels"
-            id="turboLevels"
-          ></div>
-        </div>
-
-        <button
-          class="buy-btn"
-          id="turboBuy"
-          onclick="upgrade('turbo')"
-        >
-          GELİŞTİR
-        </button>
-
-      </div>
-
-      <div class="upgrade-row">
-
-        <div>
-          <div class="upgrade-name">
-            FREN
-          </div>
-
-          <div class="upgrade-desc">
-            Şerit değişimi.
-          </div>
-
-          <div
-            class="levels"
-            id="brakesLevels"
-          ></div>
-        </div>
-
-        <button
-          class="buy-btn"
-          id="brakesBuy"
-          onclick="upgrade('brakes')"
-        >
-          GELİŞTİR
-        </button>
-
-      </div>
-
-    </div>
-
-    <div class="coin-display">
-      COIN:
-      <span id="upgradeCoins">0</span>
-    </div>
-
-    <br>
-
-    <button
-      class="back-btn"
-      onclick="closePanels()"
-    >
-      ← GERİ
-    </button>
-
-  </div>
-
-</div>
-
-<!-- =========================
-     SHOP
-========================= -->
-
-<div id="shop" class="panel hidden">
-
-  <div class="panel-box">
-
-    <div class="panel-title">
-      MAĞAZA
-    </div>
-
-    <div class="panel-subtitle">
-      NEON STİLİNİ DEĞİŞTİR
-    </div>
-
-    <div class="car-grid">
-
-      <div class="car-card">
-
-        <div class="car-preview">
-          <div class="mini-car"></div>
-        </div>
-
-        <div class="car-name">
-          CYAN NEON
-        </div>
-
-        <div class="car-info">
-          Klasik neon görünüm.
-        </div>
-
-        <button
-          class="buy-btn"
-          onclick="buySkin('cyan')"
-        >
-          500 COIN
-        </button>
-
-      </div>
-
-      <div class="car-card">
-
-        <div class="car-preview">
-          <div class="mini-car pink"></div>
-        </div>
-
-        <div class="car-name">
-          PINK NEON
-        </div>
-
-        <div class="car-info">
-          Pembe/mor neon.
-        </div>
-
-        <button
-          class="buy-btn"
-          onclick="buySkin('pink')"
-        >
-          800 COIN
-        </button>
-
-      </div>
-
-      <div class="car-card">
-
-        <div class="car-preview">
-          <div class="mini-car gold"></div>
-        </div>
-
-        <div class="car-name">
-          PHANTOM GLOW
-        </div>
-
-        <div class="car-info">
-          Altın premium görünüm.
-        </div>
-
-        <button
-          class="buy-btn"
-          onclick="buySkin('gold')"
-        >
-          1200 COIN
-        </button>
-
-      </div>
-
-    </div>
-
-    <button
-      class="back-btn"
-      onclick="closePanels()"
-    >
-      ← GERİ
-    </button>
-
-  </div>
-
-</div>
-
-<!-- =========================
-     STATS
-========================= -->
-
-<div id="stats" class="panel hidden">
-
-  <div class="panel-box">
-
-    <div class="panel-title">
-      İSTATİSTİKLER
-    </div>
-
-    <div class="panel-subtitle">
-      SÜRÜŞ GEÇMİŞİN
-    </div>
-
-    <div class="stats-grid">
-
-      <div class="stat-card">
-        <small>EN İYİ SKOR</small>
-        <strong id="statBest">0</strong>
-      </div>
-
-      <div class="stat-card">
-        <small>TOPLAM COIN</small>
-        <strong id="statCoins">0</strong>
-      </div>
-
-      <div class="stat-card">
-        <small>OYUN</small>
-        <strong id="statGames">0</strong>
-      </div>
-
-      <div class="stat-card">
-        <small>MESAFE</small>
-        <strong id="statDistance">0</strong>
-      </div>
-
-      <div class="stat-card">
-        <small>EN İYİ COMBO</small>
-        <strong id="statCombo">x1</strong>
-      </div>
-
-      <div class="stat-card">
-        <small>ARAÇ</small>
-        <strong id="statCar">
-          NEON X
-        </strong>
-      </div>
-
-    </div>
-
-    <button
-      class="back-btn"
-      onclick="closePanels()"
-    >
-      ← GERİ
-    </button>
-
-  </div>
-
-</div>
-
-<!-- =========================
-     SETTINGS
-========================= -->
-
-<div id="settings" class="panel hidden">
-
-  <div class="panel-box">
-
-    <div class="panel-title">
-      AYARLAR
-    </div>
-
-    <div class="panel-subtitle">
-      OYUN DENEYİMİNİ ÖZELLEŞTİR
-    </div>
-
-    <div class="setting-list">
-
-      <div class="setting-row">
-
-        <div>
-          <div class="setting-name">
-            SES SEVİYESİ
-          </div>
-
-          <div class="setting-desc">
-            Efekt ses seviyesi.
-          </div>
-        </div>
-
-        <input
-          id="volumeRange"
-          type="range"
-          min="0"
-          max="1"
-          step=".05"
-          value=".7"
-          oninput="changeVolume(this.value)"
-        >
-
-      </div>
-
-      <div class="setting-row">
-
-        <div>
-          <div class="setting-name">
-            EFEKTLER
-          </div>
-
-          <div class="setting-desc">
-            Coin, nitro ve çarpışma sesleri.
-          </div>
-        </div>
-
-        <button
-          class="setting-btn"
-          id="effectsBtn"
-          onclick="toggleSetting('effects')"
-        >
-          AÇIK
-        </button>
-
-      </div>
-
-      <div class="setting-row">
-
-        <div>
-          <div class="setting-name">
-            MÜZİK
-          </div>
-
-          <div class="setting-desc">
-            Arka plan müzik sistemi.
-          </div>
-        </div>
-
-        <button
-          class="setting-btn"
-          id="musicBtn"
-          onclick="toggleSetting('music')"
-        >
-          AÇIK
-        </button>
-
-      </div>
-
-      <div class="setting-row">
-
-        <div>
-          <div class="setting-name">
-            YAĞMUR
-          </div>
-
-          <div class="setting-desc">
-            Yağmur efektini aç/kapat.
-          </div>
-        </div>
-
-        <button
-          class="setting-btn"
-          id="rainBtn"
-          onclick="toggleSetting('rain')"
-        >
-          AÇIK
-        </button>
-
-      </div>
-
-      <div class="setting-row">
-
-        <div>
-          <div class="setting-name">
-            KAMERA SARSINTISI
-          </div>
-
-          <div class="setting-desc">
-            Çarpışma kamera efekti.
-          </div>
-        </div>
-
-        <button
-          class="setting-btn"
-          id="shakeBtn"
-          onclick="toggleSetting('shake')"
-        >
-          AÇIK
-        </button>
-
-      </div>
-
-    </div>
-
-    <button
-      class="back-btn"
-      onclick="closeSettings()"
-    >
-      ← GERİ
-    </button>
-
-    <button
-      class="back-btn"
-      style="margin-top:8px"
-      onclick="resetSave()"
-    >
-      ↻ KAYDI SIFIRLA
-    </button>
-
-  </div>
-
-</div>
-
-<!-- =========================
-     PAUSE
-========================= -->
-
-<div id="pauseScreen" class="panel hidden">
-
-  <div class="center-box">
-
-    <div class="big-title">
-      DURAKLATILDI
-    </div>
-
-    <br>
-
-    <button
-      class="action-btn"
-      onclick="resumeGame()"
-    >
-      ▶ DEVAM ET
-    </button>
-
-    <br><br>
-
-    <button
-      class="action-btn"
-      onclick="openPauseSettings()"
-    >
-      ⚙ AYARLAR
-    </button>
-
-    <br><br>
-
-    <button
-      class="back-btn"
-      onclick="goMainMenu()"
-    >
-      ⌂ ANA MENÜ
-    </button>
-
-  </div>
-
-</div>
-
-<!-- =========================
-     GAME OVER
-========================= -->
-
-<div id="gameOver" class="panel hidden">
-
-  <div class="center-box">
-
-    <div class="big-title pink">
-      GAME OVER
-    </div>
-
-    <div class="result-grid">
-
-      <div class="result">
-        <small>SKOR</small>
-        <strong id="finalScore">0</strong>
-      </div>
-
-      <div class="result">
-        <small>COIN</small>
-        <strong id="finalCoins">0</strong>
-      </div>
-
-      <div class="result">
-        <small>MESAFE</small>
-        <strong id="finalDistance">0</strong>
-      </div>
-
-      <div class="result">
-        <small>COMBO</small>
-        <strong id="finalCombo">x1</strong>
-      </div>
-
-    </div>
-
-    <button
-      class="action-btn"
-      onclick="playGame()"
-    >
-      ↻ TEKRAR OYNA
-    </button>
-
-    <br><br>
-
-    <button
-      class="back-btn"
-      onclick="goMainMenu()"
-    >
-      ⌂ ANA MENÜ
-    </button>
-
-  </div>
-
-</div>
-
+<!-- THREE.JS & POST-PROCESSING ENGINE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 
 <script>
-
-/* ==========================================================
-   NEON ROAD 4.3
-   ========================================================== */
-
+/* GLOBAL GAME ENGINE STATE */
 const $ = id => document.getElementById(id);
 
-const SAVE_KEY = "neonRoad43Save";
+let scene, camera, renderer, composer;
+let audioCtx, engineOsc, engineGain, turboOsc;
+let isPlaying = false, isPaused = false;
 
-/* =========================
-   SAVE
-========================= */
-
-const defaultSave = {
-  coins:0,
-  best:0,
-  games:0,
-  distance:0,
-  bestCombo:1,
-
-  selectedCar:0,
-
-  cars:[
-    true,
-    false,
-    false
-  ],
-
-  skins:{
-    cyan:true,
-    pink:false,
-    gold:false
-  },
-
-  selectedSkin:"cyan",
-
-  upgrades:{
-    engine:0,
-    nitro:0,
-    tires:0,
-    turbo:0,
-    brakes:0
-  },
-
-  settings:{
-    volume:.7,
-    effects:true,
-    music:true,
-    rain:true,
-    shake:true
-  }
+// Physics & Vehicle Parameters
+const vehicle = {
+  mesh: null,
+  bodyMesh: null,
+  x: 0,
+  targetX: 0,
+  lane: 1,
+  lanes: [-5.2, 0, 5.2],
+  speed: 0,
+  targetSpeed: 0,
+  maxSpeed: 240,
+  nitro: 100,
+  nitroActive: false,
+  pitch: 0,
+  roll: 0,
+  health: 3,
+  invulnerable: 0
 };
 
-function cloneDefault(){
+let score = 0, coins = 0, distance = 0, maxAchievedSpeed = 0;
+let traffic = [], coinsList = [], rainSystem, roadMesh, roadMaterial;
+const clock = new THREE.Clock();
 
-  return JSON.parse(
-    JSON.stringify(defaultSave)
-  );
+/* 1. SYNTHESIZED PROCEDURAL TEXTURES (PBR GENERATOR) */
+function generateWetRoadTextures(){
+  const canvas = document.createElement('canvas');
+  canvas.width = 512; canvas.height = 512;
+  const ctx = canvas.getContext('2d');
 
-}
+  // Base Wet Asphalt
+  ctx.fillStyle = '#080a10';
+  ctx.fillRect(0, 0, 512, 512);
 
-function mergeSave(base,data){
-
-  for(const key in data){
-
-    if(
-      data[key] &&
-      typeof data[key]==="object" &&
-      !Array.isArray(data[key]) &&
-      base[key] &&
-      typeof base[key]==="object"
-    ){
-
-      base[key]=
-        mergeSave(
-          base[key],
-          data[key]
-        );
-
-    }else{
-
-      base[key]=data[key];
-
-    }
-
+  // Noise & Cracks
+  for(let i=0; i<15000; i++){
+    ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.2)';
+    ctx.fillRect(Math.random()*512, Math.random()*512, 2, 2);
   }
 
-  return base;
-
-}
-
-function loadData(){
-
-  try{
-
-    const raw=
-      localStorage.getItem(
-        SAVE_KEY
-      );
-
-    if(!raw){
-      return cloneDefault();
-    }
-
-    return mergeSave(
-      cloneDefault(),
-      JSON.parse(raw)
-    );
-
-  }catch(e){
-
-    return cloneDefault();
-
+  // Puddles (Roughness Map Variant)
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  for(let i=0; i<8; i++){
+    ctx.beginPath();
+    ctx.arc(Math.random()*512, Math.random()*512, 30+Math.random()*50, 0, Math.PI*2);
+    ctx.fill();
   }
 
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(1, 40);
+  return texture;
 }
 
-let NR=loadData();
+/* 2. 3D AUDIO ENGINE (WEB AUDIO SYNTHESIZER) */
+function initAudioEngine(){
+  if(audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-function saveData(){
+  // Engine Synthesizer (Low-Frequency Sawtooth + LowPass Filter)
+  engineOsc = audioCtx.createOscillator();
+  const filter = audioCtx.createBiquadFilter();
+  engineGain = audioCtx.createGain();
 
-  localStorage.setItem(
-    SAVE_KEY,
-    JSON.stringify(NR)
-  );
+  engineOsc.type = 'sawtooth';
+  engineOsc.frequency.setValueAtTime(40, audioCtx.currentTime);
 
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(280, audioCtx.currentTime);
+
+  engineGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+
+  engineOsc.connect(filter);
+  filter.connect(engineGain);
+  engineGain.connect(audioCtx.destination);
+  engineOsc.start();
 }
 
-/* =========================
-   THREE
-========================= */
-
-let renderer;
-let scene;
-let camera;
-
-let player;
-
-let traffic=[];
-let coins3D=[];
-let city=[];
-let particles=[];
-let rainLines=[];
-let roadDashes=[];
-
-const laneX=[
-  -5,
-  0,
-  5
-];
-
-const ROAD_WIDTH=16;
-
-let running=false;
-let paused=false;
-
-let score=0;
-let runCoins=0;
-let combo=1;
-let comboTimer=0;
-
-let nitro=100;
-let lives=3;
-
-let distance=0;
-
-let speedKmh=0;
-
-let gameTime=0;
-
-let shake=0;
-let invincible=0;
-
-let nitroActive=false;
-
-let targetLane=1;
-
-let audioCtx=null;
-
-/* ==========================================================
-   INITIALIZE
-   ========================================================== */
-
-function initThree(){
-
-  scene=
-    new THREE.Scene();
-
-  scene.background=
-    new THREE.Color(
-      0x02030a
-    );
-
-  scene.fog=
-    new THREE.FogExp2(
-      0x02030a,
-      .0055
-    );
-
-  camera=
-    new THREE.PerspectiveCamera(
-      65,
-      innerWidth/innerHeight,
-      .1,
-      1200
-    );
-
-  camera.position.set(
-    0,
-    5.2,
-    10
-  );
-
-  renderer=
-    new THREE.WebGLRenderer({
-      antialias:true,
-      powerPreference:
-        "high-performance"
-    });
-
-  renderer.setPixelRatio(
-    Math.min(
-      devicePixelRatio,
-      1.7
-    )
-  );
-
-  renderer.setSize(
-    innerWidth,
-    innerHeight
-  );
-
-  renderer.outputEncoding=
-    THREE.sRGBEncoding;
-
-  $("game").appendChild(
-    renderer.domElement
-  );
-
-  createLights();
-  createWorld();
-  createPlayer();
-  createTraffic();
-  createCoins();
-  createRain();
-
+function updateEngineAudio(speedRatio, isNitro){
+  if(!audioCtx || !engineOsc) return;
+  const baseFreq = 40 + speedRatio * 160 + (isNitro ? 50 : 0);
+  engineOsc.frequency.setTargetAtTime(baseFreq, audioCtx.currentTime, 0.05);
+  engineGain.gain.setTargetAtTime(isPlaying ? 0.2 : 0.001, audioCtx.currentTime, 0.1);
 }
 
-/* ==========================================================
-   LIGHTS
-   ========================================================== */
-
-function createLights(){
-
-  const hemi=
-    new THREE.HemisphereLight(
-      0x66ddff,
-      0x07000f,
-      1.15
-    );
-
-  scene.add(hemi);
-
-  const dir=
-    new THREE.DirectionalLight(
-      0xffffff,
-      .7
-    );
-
-  dir.position.set(
-    20,
-    40,
-    10
-  );
-
-  scene.add(dir);
-
-  const cyan=
-    new THREE.PointLight(
-      0x00eaff,
-      25,
-      100
-    );
-
-  cyan.position.set(
-    -20,
-    8,
-    10
-  );
-
-  scene.add(cyan);
-
-  const pink=
-    new THREE.PointLight(
-      0xff1493,
-      22,
-      100
-    );
-
-  pink.position.set(
-    20,
-    8,
-    -40
-  );
-
-  scene.add(pink);
-
-}
-
-/* ==========================================================
-   WORLD
-   ========================================================== */
-
-function createWorld(){
-
-  const ground=
-    new THREE.Mesh(
-      new THREE.PlaneGeometry(
-        2000,
-        2000
-      ),
-      new THREE.MeshStandardMaterial({
-        color:0x050711,
-        roughness:.95
-      })
-    );
-
-  ground.rotation.x=
-    -Math.PI/2;
-
-  ground.position.y=
-    -.35;
-
-  scene.add(ground);
-
-  const road=
-    new THREE.Mesh(
-      new THREE.PlaneGeometry(
-        ROAD_WIDTH,
-        1200
-      ),
-      new THREE.MeshStandardMaterial({
-        color:0x080b14,
-        roughness:.75,
-        metalness:.15
-      })
-    );
-
-  road.rotation.x=
-    -Math.PI/2;
-
-  road.position.y=
-    -.3;
-
-  road.position.z=
-    -450;
-
-  scene.add(road);
-
-  createRoadEdges();
-  createRoadDashes();
-  createCity();
-
-}
-
-/* ==========================================================
-   ROAD EDGES
-   ========================================================== */
-
-function createRoadEdges(){
-
-  for(const side of [-1,1]){
-
-    const line=
-      new THREE.Mesh(
-        new THREE.BoxGeometry(
-          .18,
-          .07,
-          1200
-        ),
-        new THREE.MeshBasicMaterial({
-          color:0x00eaff
-        })
-      );
-
-    line.position.set(
-      side*(ROAD_WIDTH/2-.15),
-      -.22,
-      -450
-    );
-
-    scene.add(line);
-
-    const glow=
-      new THREE.Mesh(
-        new THREE.BoxGeometry(
-          .08,
-          .08,
-          1200
-        ),
-        new THREE.MeshBasicMaterial({
-          color:0xff1493
-        })
-      );
-
-    glow.position.set(
-      side*(ROAD_WIDTH/2+.1),
-      -.21,
-      -450
-    );
-
-    scene.add(glow);
-
-  }
-
-}
-
-/* ==========================================================
-   ROAD DASHES
-   ========================================================== */
-
-function createRoadDashes(){
-
-  for(const x of [-2.5,2.5]){
-
-    for(let z=20;z>-1200;z-=18){
-
-      const dash=
-        new THREE.Mesh(
-          new THREE.BoxGeometry(
-            .09,
-            .035,
-            8
-          ),
-          new THREE.MeshBasicMaterial({
-            color:0xb8f7ff
-          })
-        );
-
-      dash.position.set(
-        x,
-        -.19,
-        z
-      );
-
-      scene.add(dash);
-
-      roadDashes.push(dash);
-
-    }
-
-  }
-
-}
-
-/* ==========================================================
-   CITY
-   ========================================================== */
-
-function createCity(){
-
-  for(const side of [-1,1]){
-
-    for(let i=0;i<45;i++){
-
-      const group=
-        new THREE.Group();
-
-      const width=
-        4+Math.random()*8;
-
-      const height=
-        8+Math.random()*35;
-
-      const depth=
-        5+Math.random()*10;
-
-      const building=
-        new THREE.Mesh(
-          new THREE.BoxGeometry(
-            width,
-            height,
-            depth
-          ),
-          new THREE.MeshStandardMaterial({
-            color:new THREE.Color(
-              .015,
-              .025+Math.random()*.03,
-              .06+Math.random()*.05
-            ),
-            roughness:.85,
-            metalness:.1
-          })
-        );
-
-      building.position.y=
-        height/2-.3;
-
-      group.add(building);
-
-      const windowMat=
-        new THREE.MeshBasicMaterial({
-          color:
-            Math.random()>.5
-            ?0x00eaff
-            :0xff1493
-        });
-
-      for(let w=0;w<8;w++){
-
-        const win=
-          new THREE.Mesh(
-            new THREE.BoxGeometry(
-              .12,
-              .35,
-              .03
-            ),
-            windowMat
-          );
-
-        win.position.set(
-          (Math.random()-.5)*
-            width*.7,
-          2+
-            Math.random()*
-            Math.max(
-              2,
-              height-3
-            ),
-          -depth/2-.03
-        );
-
-        group.add(win);
-
-      }
-
-      group.position.x=
-        side*
-        (
-          ROAD_WIDTH/2+
-          7+
-          Math.random()*12
-        );
-
-      group.position.z=
-        -i*28-
-        Math.random()*20;
-
-      scene.add(group);
-
-      city.push(group);
-
-    }
-
-  }
-
-}
-
-/* ==========================================================
-   CAR
-   ========================================================== */
-
-function createCar(color,glow){
-
-  const g=
-    new THREE.Group();
-
-  const bodyMat=
-    new THREE.MeshStandardMaterial({
-      color:color,
-      metalness:.7,
-      roughness:.25
-    });
-
-  const body=
-    new THREE.Mesh(
-      new THREE.BoxGeometry(
-        2.4,
-        .65,
-        4.4
-      ),
-      bodyMat
-    );
-
-  body.position.y=.65;
-
-  g.add(body);
-
-  const hood=
-    new THREE.Mesh(
-      new THREE.BoxGeometry(
-        2.15,
-        .3,
-        1.6
-      ),
-      bodyMat
-    );
-
-  hood.position.set(
-    0,
-    .9,
-    -1.1
-  );
-
-  g.add(hood);
-
-  const glass=
-    new THREE.Mesh(
-      new THREE.BoxGeometry(
-        1.75,
-        .5,
-        1.8
-      ),
-      new THREE.MeshStandardMaterial({
-        color:0x081520,
-        metalness:.5,
-        roughness:.15
-      })
-    );
-
-  glass.position.set(
-    0,
-    1.1,
-    .55
-  );
-
-  g.add(glass);
-
-  const front=
-    new THREE.Mesh(
-      new THREE.BoxGeometry(
-        1.7,
-        .12,
-        .08
-      ),
-      new THREE.MeshBasicMaterial({
-        color:glow
-      })
-    );
-
-  front.position.set(
-    0,
-    .7,
-    -2.23
-  );
-
-  g.add(front);
-
-  const rear=
-    new THREE.Mesh(
-      new THREE.BoxGeometry(
-        1.7,
-        .12,
-        .08
-      ),
-      new THREE.MeshBasicMaterial({
-        color:0xff003c
-      })
-    );
-
-  rear.position.set(
-    0,
-    .72,
-    2.23
-  );
-
-  g.add(rear);
-
-  const wheelMat=
-    new THREE.MeshStandardMaterial({
-      color:0x020203,
-      roughness:.8
-    });
-
-  for(const x of [-1.15,1.15]){
-
-    for(const z of [-1.45,1.45]){
-
-      const wheel=
-        new THREE.Mesh(
-          new THREE.CylinderGeometry(
-            .42,
-            .42,
-            .28,
-            16
-          ),
-          wheelMat
-        );
-
-      wheel.rotation.z=
-        Math.PI/2;
-
-      wheel.position.set(
-        x,
-        .42,
-        z
-      );
-
-      g.add(wheel);
-
-    }
-
-  }
-
-  return g;
-
-}
-
-/* ==========================================================
-   PLAYER
-   ========================================================== */
-
-function createPlayer(){
-
-  player=
-    createCar(
-      0x00aaff,
-      0x00eaff
-    );
-
-  player.position.set(
-    0,
-    0,
-    5
-  );
-
-  scene.add(player);
-
-}
-
-/* ==========================================================
-   TRAFFIC
-   ========================================================== */
-
-function createTraffic(){
-
-  const colors=[
-    0xff1493,
-    0x7b2cff,
-    0xff6b00,
-    0x00eaff,
-    0x8cff00,
-    0xffffff
-  ];
-
-  for(let i=0;i<14;i++){
-
-    const color=
-      colors[
-        Math.floor(
-          Math.random()*colors.length
-        )
-      ];
-
-    const car=
-      createCar(
-        color,
-        color
-      );
-
-    car.position.x=
-      laneX[
-        Math.floor(
-          Math.random()*3
-        )
-      ];
-
-    car.position.z=
-      -30-
-      Math.random()*700;
-
-    car.userData.speed=
-      .75+
-      Math.random()*.5;
-
-    scene.add(car);
-
-    traffic.push(car);
-
-  }
-
-}
-
-/* ==========================================================
-   COINS
-   ========================================================== */
-
-function createCoin(){
-
-  const g=
-    new THREE.Group();
-
-  const coin=
-    new THREE.Mesh(
-      new THREE.TorusGeometry(
-        .45,
-        .13,
-        10,
-        24
-      ),
-      new THREE.MeshStandardMaterial({
-        color:0xffd84a,
-        emissive:0xff9f00,
-        emissiveIntensity:1.5,
-        metalness:.7,
-        roughness:.2
-      })
-    );
-
-  coin.rotation.y=
-    Math.PI/2;
-
-  g.add(coin);
-
-  const light=
-    new THREE.PointLight(
-      0xffc400,
-      3,
-      5
-    );
-
-  g.add(light);
-
-  return g;
-
-}
-
-function createCoins(){
-
-  for(let i=0;i<18;i++){
-
-    const coin=
-      createCoin();
-
-    coin.position.x=
-      laneX[
-        Math.floor(
-          Math.random()*3
-        )
-      ];
-
-    coin.position.y=
-      1.3;
-
-    coin.position.z=
-      -40-
-      Math.random()*700;
-
-    scene.add(coin);
-
-    coins3D.push(coin);
-
-  }
-
-}
-
-/* ==========================================================
-   RAIN
-   ========================================================== */
-
-function createRain(){
-
-  const positions=[];
-
-  for(let i=0;i<800;i++){
-
-    const x=
-      (Math.random()-.5)*130;
-
-    const y=
-      Math.random()*60;
-
-    const z=
-      -Math.random()*600;
-
-    positions.push(
-      x,y,z,
-      x-.25,y-3,z
-    );
-
-  }
-
-  const geo=
-    new THREE.BufferGeometry();
-
-  geo.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(
-      positions,
-      3
-    )
-  );
-
-  const rain=
-    new THREE.LineSegments(
-      geo,
-      new THREE.LineBasicMaterial({
-        color:0x69dfff,
-        transparent:true,
-        opacity:.28
-      })
-    );
-
-  scene.add(rain);
-
-  rainLines.push(rain);
-
-}
-
-/* ==========================================================
-   PARTICLES
-   ========================================================== */
-
-function particleBurst(pos,color){
-
-  for(let i=0;i<28;i++){
-
-    const p=
-      new THREE.Mesh(
-        new THREE.SphereGeometry(
-          .04,
-          5,
-          5
-        ),
-        new THREE.MeshBasicMaterial({
-          color:color
-        })
-      );
-
-    p.position.copy(pos);
-
-    p.userData.life=1;
-
-    p.userData.velocity=
-      new THREE.Vector3(
-        (Math.random()-.5)*5,
-        Math.random()*4,
-        (Math.random()-.5)*5
-      );
-
-    scene.add(p);
-
-    particles.push(p);
-
-  }
-
-}
-
-function updateParticles(dt){
-
-  for(
-    let i=particles.length-1;
-    i>=0;
-    i--
-  ){
-
-    const p=
-      particles[i];
-
-    p.userData.life-=
-      dt*1.5;
-
-    p.position.addScaledVector(
-      p.userData.velocity,
-      dt
-    );
-
-    p.userData.velocity.y-=
-      5*dt;
-
-    p.scale.setScalar(
-      Math.max(
-        .01,
-        p.userData.life
-      )
-    );
-
-    if(
-      p.userData.life<=0
-    ){
-
-      scene.remove(p);
-
-      particles.splice(
-        i,
-        1
-      );
-
-    }
-
-  }
-
-}
-
-/* ==========================================================
-   AUDIO
-   ========================================================== */
-
-function initAudio(){
-
-  if(audioCtx)return;
-
-  try{
-
-    audioCtx=
-      new(
-        window.AudioContext ||
-        window.webkitAudioContext
-      )();
-
-  }catch(e){}
-
-}
-
-function beep(
-  freq=500,
-  duration=.08
-){
-
-  if(
-    !NR.settings.effects ||
-    NR.settings.volume<=0
-  ){
-    return;
-  }
-
-  initAudio();
-
-  if(!audioCtx)return;
-
-  if(
-    audioCtx.state==="suspended"
-  ){
-
-    audioCtx.resume();
-
-  }
-
-  const osc=
-    audioCtx.createOscillator();
-
-  const gain=
-    audioCtx.createGain();
-
-  osc.type="sawtooth";
-
-  osc.frequency.value=
-    freq;
-
-  gain.gain.setValueAtTime(
-    .0001,
-    audioCtx.currentTime
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    .12*
-    NR.settings.volume,
-    audioCtx.currentTime+.01
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    .0001,
-    audioCtx.currentTime+
-    duration
-  );
-
+function playSoundFX(type){
+  if(!audioCtx) return;
+  const now = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
   osc.connect(gain);
   gain.connect(audioCtx.destination);
 
-  osc.start();
+  if(type === 'coin'){
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(900, now);
+    osc.frequency.exponentialRampToValueAtTime(1400, now + 0.12);
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+    osc.start(now); osc.stop(now + 0.12);
+  }else if(type === 'crash'){
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(150, now);
+    osc.frequency.linearRampToValueAtTime(30, now + 0.35);
+    gain.gain.setValueAtTime(0.6, now);
+    gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+    osc.start(now); osc.stop(now + 0.35);
+  }
+}
 
-  osc.stop(
-    audioCtx.currentTime+
-    duration+
-    .02
+/* 3. SCENE, LIGHTING & POST-PROCESSING SETUP */
+function initEngine(){
+  const container = $('game');
+
+  // Scene & Camera
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x010206);
+  scene.fog = new THREE.FogExp2(0x010206, 0.007);
+
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 4.5, 9);
+
+  // WebGL Renderer
+  renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+  container.appendChild(renderer.domElement);
+
+  // Post-Processing Bloom Pipeline
+  const renderPass = new THREE.RenderPass(scene, camera);
+  const bloomPass = new THREE.UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    1.4, // Strength
+    0.4, // Radius
+    0.85 // Threshold
   );
 
+  composer = new THREE.EffectComposer(renderer);
+  composer.addPass(renderPass);
+  composer.addPass(bloomPass);
+
+  // Lighting
+  const ambient = new THREE.AmbientLight(0xddeeff, 0.6);
+  scene.add(ambient);
+
+  const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  mainLight.position.set(20, 50, 20);
+  scene.add(mainLight);
+
+  // Cyberpunk City Lights
+  const cyanLight = new THREE.PointLight(0x00eaff, 15, 120);
+  cyanLight.position.set(-15, 8, -50);
+  scene.add(cyanLight);
+
+  const pinkLight = new THREE.PointLight(0xff0077, 15, 120);
+  pinkLight.position.set(15, 8, -100);
+  scene.add(pinkLight);
+
+  // Construct World Elements
+  buildRoad();
+  buildCyberCity();
+  buildPlayerVehicle();
+  buildTrafficPool();
+  buildCoinsPool();
+  buildRainSystem();
+
+  // Listeners
+  window.addEventListener('resize', onWindowResize);
+  setupInputHandlers();
+
+  // Render Loop
+  animate();
 }
 
-/* ==========================================================
-   PANELS
-   ========================================================== */
+/* 4. WORLD BUILDERS & PROCEDURAL MESHES */
+function buildRoad(){
+  const roadGeo = new THREE.PlaneGeometry(16, 1000);
+  const roadTex = generateWetRoadTextures();
 
-let settingsFromGame=false;
+  roadMaterial = new THREE.MeshStandardMaterial({
+    color: 0x0a0d14,
+    roughness: 0.2,
+    metalness: 0.8,
+    map: roadTex
+  });
 
-function hidePanels(){
+  roadMesh = new THREE.Mesh(roadGeo, roadMaterial);
+  roadMesh.rotation.x = -Math.PI / 2;
+  roadMesh.position.z = -450;
+  scene.add(roadMesh);
 
-  [
-    "garage",
-    "upgrades",
-    "shop",
-    "stats",
-    "settings",
-    "pauseScreen",
-    "gameOver"
-  ].forEach(
-    id=>{
-      $(id).classList.add(
-        "hidden"
-      );
+  // Glowing Neon Edge Rails
+  for(let side of [-1, 1]){
+    const railGeo = new THREE.BoxGeometry(0.2, 0.2, 1000);
+    const railMat = new THREE.MeshBasicMaterial({ color: side === -1 ? 0x00eaff : 0xff0077 });
+    const rail = new THREE.Mesh(railGeo, railMat);
+    rail.position.set(side * 8, 0.1, -450);
+    scene.add(rail);
+  }
+}
+
+function buildCyberCity(){
+  const buildingGeo = new THREE.BoxGeometry(1, 1, 1);
+
+  for(let i=0; i<60; i++){
+    const height = 20 + Math.random() * 70;
+    const width = 8 + Math.random() * 14;
+    const depth = 10 + Math.random() * 20;
+
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0x030712,
+      roughness: 0.9,
+      metalness: 0.1
+    });
+
+    const b = new THREE.Mesh(buildingGeo, mat);
+    b.scale.set(width, height, depth);
+
+    const side = i % 2 === 0 ? -1 : 1;
+    b.position.set(side * (18 + Math.random() * 30), height / 2, -i * 18);
+    scene.add(b);
+
+    // Neon Window Emissives
+    if(Math.random() > 0.3){
+      const winGeo = new THREE.PlaneGeometry(width * 0.8, height * 0.7);
+      const winMat = new THREE.MeshBasicMaterial({
+        color: Math.random() > 0.5 ? 0x00eaff : 0xff0077,
+        wireframe: true
+      });
+      const win = new THREE.Mesh(winGeo, winMat);
+      win.position.set(side * (18 + Math.random() * 30), height / 2, -i * 18 + (side * depth/2 + 0.1));
+      scene.add(win);
     }
-  );
-
+  }
 }
 
-function openPanel(name){
+function buildPlayerVehicle(){
+  vehicle.mesh = new THREE.Group();
 
-  hidePanels();
+  // Aerodynamic Body
+  const bodyGeo = new THREE.BoxGeometry(2, 0.6, 4.2);
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color: 0x00eaff,
+    metalness: 0.9,
+    roughness: 0.1
+  });
+  vehicle.bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+  vehicle.bodyMesh.position.y = 0.5;
+  vehicle.mesh.add(vehicle.bodyMesh);
 
-  $("mainMenu")
-    .classList.add(
-      "hidden"
+  // Cabin
+  const cabinGeo = new THREE.BoxGeometry(1.4, 0.5, 1.8);
+  const cabinMat = new THREE.MeshStandardMaterial({ color: 0x02050a, roughness: 0.0, metalness: 1.0 });
+  const cabin = new THREE.Mesh(cabinGeo, cabinMat);
+  cabin.position.set(0, 0.85, -0.2);
+  vehicle.mesh.add(cabin);
+
+  // Underglow Neon
+  const glowGeo = new THREE.PlaneGeometry(2.2, 4.4);
+  const glowMat = new THREE.MeshBasicMaterial({ color: 0x00eaff, side: THREE.DoubleSide });
+  const glow = new THREE.Mesh(glowGeo, glowMat);
+  glow.rotation.x = Math.PI/2;
+  glow.position.y = 0.05;
+  vehicle.mesh.add(glow);
+
+  scene.add(vehicle.mesh);
+}
+
+function buildTrafficPool(){
+  for(let i=0; i<8; i++){
+    const group = new THREE.Group();
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(2, 0.8, 4),
+      new THREE.MeshStandardMaterial({ color: 0xff0055, roughness: 0.3, metalness: 0.7 })
     );
+    mesh.position.y = 0.5;
+    group.add(mesh);
 
-  $(name)
-    .classList.remove(
-      "hidden"
-    );
+    group.position.set(vehicle.lanes[i % 3], 0, -100 - i * 60);
+    group.userData = { speed: 40 + Math.random() * 30 };
+    scene.add(group);
+    traffic.push(group);
+  }
+}
 
-  if(name==="garage")
-    updateGarage();
+function buildCoinsPool(){
+  const geo = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 16);
+  const mat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.9, roughness: 0.1 });
 
-  if(name==="upgrades")
-    updateUpgrades();
+  for(let i=0; i<15; i++){
+    const coin = new THREE.Mesh(geo, mat);
+    coin.rotation.x = Math.PI / 2;
+    coin.position.set(vehicle.lanes[Math.floor(Math.random()*3)], 0.6, -80 - i * 35);
+    scene.add(coin);
+    coinsList.push(coin);
+  }
+}
 
-  if(name==="stats")
-    updateStats();
+function buildRainSystem(){
+  const count = 1200;
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(count * 3);
 
-  if(name==="settings"){
-
-    settingsFromGame=false;
-
-    updateSettingsUI();
-
+  for(let i=0; i<count*3; i+=3){
+    positions[i] = (Math.random() - 0.5) * 40;
+    positions[i+1] = Math.random() * 25;
+    positions[i+2] = (Math.random() - 0.5) * 80;
   }
 
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const material = new THREE.PointsMaterial({ color: 0x00eaff, size: 0.1, transparent: true, opacity: 0.6 });
+  rainSystem = new THREE.Points(geometry, material);
+  scene.add(rainSystem);
 }
 
-function closePanels(){
+/* 5. CONTROLS & INPUTS */
+function setupInputHandlers(){
+  window.addEventListener('keydown', e => {
+    if(!isPlaying || isPaused) return;
+    if(e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') changeLane(-1);
+    if(e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') changeLane(1);
+    if(e.key === ' ' || e.key === 'Shift') triggerNitro(true);
+  });
 
-  hidePanels();
+  window.addEventListener('keyup', e => {
+    if(e.key === ' ' || e.key === 'Shift') triggerNitro(false);
+  });
 
-  $("mainMenu")
-    .classList.remove(
-      "hidden"
-    );
-
-  updateMenuUI();
-
+  // Touch handlers
+  $('touchLeft').addEventListener('touchstart', e => { e.preventDefault(); changeLane(-1); });
+  $('touchRight').addEventListener('touchstart', e => { e.preventDefault(); changeLane(1); });
+  $('touchNitro').addEventListener('touchstart', e => { e.preventDefault(); triggerNitro(true); });
+  $('touchNitro').addEventListener('touchend', e => { e.preventDefault(); triggerNitro(false); });
 }
 
-function openGameSettings(){
-
-  if(!running)return;
-
-  settingsFromGame=true;
-
-  paused=true;
-
-  $("settings")
-    .classList.remove(
-      "hidden"
-    );
-
-  updateSettingsUI();
-
+function changeLane(dir){
+  vehicle.lane = Math.max(0, Math.min(2, vehicle.lane + dir));
+  vehicle.targetX = vehicle.lanes[vehicle.lane];
+  // Haptic feedback for mobile
+  if(navigator.vibrate) navigator.vibrate(25);
 }
 
-function openPauseSettings(){
-
-  settingsFromGame=true;
-
-  $("pauseScreen")
-    .classList.add(
-      "hidden"
-    );
-
-  $("settings")
-    .classList.remove(
-      "hidden"
-    );
-
-  updateSettingsUI();
-
+function triggerNitro(val){
+  vehicle.nitroActive = val && vehicle.nitro > 5;
 }
 
-function closeSettings(){
+/* 6. GAME ENGINE LOOP & PHYSICS SIMULATION */
+function animate(){
+  requestAnimationFrame(animate);
 
-  $("settings")
-    .classList.add(
-      "hidden"
-    );
+  const delta = clock.getDelta();
 
-  if(settingsFromGame){
+  if(isPlaying && !isPaused){
+    // Speed Physics & G-Force Simulation
+    const targetSpd = vehicle.nitroActive ? vehicle.maxSpeed * 1.3 : vehicle.maxSpeed;
+    vehicle.speed += (targetSpd - vehicle.speed) * delta * 1.2;
 
-    settingsFromGame=false;
+    const speedRatio = vehicle.speed / vehicle.maxSpeed;
+    if(vehicle.speed > maxAchievedSpeed) maxAchievedSpeed = Math.floor(vehicle.speed);
 
-    if(running){
-
-      paused=false;
-
+    // Nitro Consumption
+    if(vehicle.nitroActive){
+      vehicle.nitro = Math.max(0, vehicle.nitro - delta * 25);
+      if(vehicle.nitro === 0) vehicle.nitroActive = false;
+    }else{
+      vehicle.nitro = Math.min(100, vehicle.nitro + delta * 10);
     }
 
-  }else{
-
-    $("mainMenu")
-      .classList.remove(
-        "hidden"
-      );
-
-  }
-
-}
-
-/* ==========================================================
-   SETTINGS
-   ========================================================== */
-
-function changeVolume(v){
-
-  NR.settings.volume=
-    Number(v);
-
-  saveData();
-
-}
-
-function toggleSetting(name){
-
-  NR.settings[name]=
-    !NR.settings[name];
-
-  saveData();
-
-  updateSettingsUI();
-
-  if(name==="rain"){
-    updateRainVisibility();
-  }
-
-  if(
-    name==="effects" &&
-    NR.settings.effects
-  ){
-
-    beep(650,.08);
-
-  }
-
-}
-
-function updateSettingsUI(){
-
-  $("volumeRange").value=
-    NR.settings.volume;
-
-  $("effectsBtn").textContent=
-    NR.settings.effects
-    ?"AÇIK"
-    :"KAPALI";
-
-  $("musicBtn").textContent=
-    NR.settings.music
-    ?"AÇIK"
-    :"KAPALI";
-
-  $("rainBtn").textContent=
-    NR.settings.rain
-    ?"AÇIK"
-    :"KAPALI";
-
-  $("shakeBtn").textContent=
-    NR.settings.shake
-    ?"AÇIK"
-    :"KAPALI";
-
-  updateRainVisibility();
-
-}
-
-function updateRainVisibility(){
-
-  rainLines.forEach(
-    r=>{
-      r.visible=
-        NR.settings.rain;
-    }
-  );
-
-}
-
-/* ==========================================================
-   MENU
-   ========================================================== */
-
-function updateMenuUI(){
-
-  $("menuCoins").textContent=
-    Math.floor(
-      NR.coins
-    );
-
-  $("menuBest").textContent=
-    Math.floor(
-      NR.best
-    );
-
-}
-
-/* ==========================================================
-   GARAGE
-   ========================================================== */
-
-function selectCar(index){
-
-  if(!NR.cars[index])
-    return;
-
-  NR.selectedCar=
-    index;
-
-  saveData();
-
-  updateGarage();
-
-  beep(700,.08);
-
-}
-
-function buyOrSelectCar(index){
-
-  if(NR.cars[index]){
-
-    selectCar(index);
-
-    return;
-
-  }
-
-  const prices=[
-    0,
-    1500,
-    3500
-  ];
-
-  const price=
-    prices[index];
-
-  if(
-    NR.coins<
-    price
-  ){
-
-    beep(150,.12);
-
-    return;
-
-  }
-
-  NR.coins-=
-    price;
-
-  NR.cars[index]=
-    true;
-
-  NR.selectedCar=
-    index;
-
-  saveData();
-
-  updateGarage();
-  updateMenuUI();
-
-  beep(900,.15);
-
-}
-
-function updateGarage(){
-
-  for(let i=0;i<3;i++){
-
-    $("carCard"+i)
-      .classList.toggle(
-        "selected",
-        NR.selectedCar===i
-      );
-
-  }
-
-}
-
-/* ==========================================================
-   UPGRADES
-   ========================================================== */
-
-const upgradeNames=[
-  "engine",
-  "nitro",
-  "tires",
-  "turbo",
-  "brakes"
-];
-
-const upgradePrices=[
-  300,
-  350,
-  300,
-  450,
-  300
-];
-
-function upgrade(type){
-
-  const level=
-    NR.upgrades[type];
-
-  if(level>=5){
-
-    beep(150,.1);
-
-    return;
-
-  }
-
-  const index=
-    upgradeNames.indexOf(
-      type
-    );
-
-  const price=
-    upgradePrices[index]*
-    (level+1);
-
-  if(
-    NR.coins<
-    price
-  ){
-
-    beep(150,.12);
-
-    return;
-
-  }
-
-  NR.coins-=price;
-
-  NR.upgrades[type]++;
-
-  saveData();
-
-  updateUpgrades();
-  updateMenuUI();
-
-  beep(800,.12);
-
-}
-
-function updateUpgrades(){
-
-  $("upgradeCoins").textContent=
-    Math.floor(
-      NR.coins
-    );
-
-  upgradeNames.forEach(
-    type=>{
-
-      const container=
-        $(type+"Levels");
-
-      container.innerHTML="";
-
-      const level=
-        NR.upgrades[type];
-
-      for(let i=0;i<5;i++){
-
-        const el=
-          document.createElement(
-            "div"
-          );
-
-        el.className=
-          "level"+
-          (
-            i<level
-            ?" active"
-            :""
-          );
-
-        container.appendChild(
-          el
-        );
-
+    // Vehicle Steering Physics & Suspension Roll
+    const dx = vehicle.targetX - vehicle.x;
+    vehicle.x += dx * delta * 8;
+    vehicle.roll = -dx * 0.08; // Roll suspension on lane turn
+    vehicle.pitch = vehicle.nitroActive ? -0.05 : 0.02; // Pitch back on nitro acceleration
+
+    vehicle.mesh.position.x = vehicle.x;
+    vehicle.bodyMesh.rotation.z = vehicle.roll;
+    vehicle.bodyMesh.rotation.x = vehicle.pitch;
+
+    // Road Texture Scrolling (Speed Illusion)
+    roadMaterial.map.offset.y -= delta * speedRatio * 8;
+
+    // Traffic Motion & Collision Box Physics
+    traffic.forEach(t => {
+      t.position.z += delta * (vehicle.speed * 0.3 - t.userData.speed);
+      if(t.position.z > 10){
+        t.position.z = -250 - Math.random() * 150;
+        t.position.x = vehicle.lanes[Math.floor(Math.random()*3)];
       }
 
-      const index=
-        upgradeNames.indexOf(
-          type
-        );
-
-      const price=
-        upgradePrices[index]*
-        (level+1);
-
-      const button=
-        $(type+"Buy");
-
-      button.textContent=
-        level>=5
-        ?"MAX"
-        :price+" COIN";
-
-    }
-  );
-
-}
-
-/* ==========================================================
-   SHOP
-   ========================================================== */
-
-function buySkin(type){
-
-  if(NR.skins[type]){
-
-    NR.selectedSkin=
-      type;
-
-    saveData();
-
-    beep(700,.08);
-
-    return;
-
-  }
-
-  const prices={
-    cyan:500,
-    pink:800,
-    gold:1200
-  };
-
-  const price=
-    prices[type];
-
-  if(
-    NR.coins<
-    price
-  ){
-
-    beep(150,.12);
-
-    return;
-
-  }
-
-  NR.coins-=
-    price;
-
-  NR.skins[type]=
-    true;
-
-  NR.selectedSkin=
-    type;
-
-  saveData();
-
-  updateMenuUI();
-
-  beep(900,.15);
-
-}
-
-/* ==========================================================
-   STATS
-   ========================================================== */
-
-function updateStats(){
-
-  $("statBest").textContent=
-    Math.floor(NR.best);
-
-  $("statCoins").textContent=
-    Math.floor(NR.coins);
-
-  $("statGames").textContent=
-    Math.floor(NR.games);
-
-  $("statDistance").textContent=
-    Math.floor(
-      NR.distance
-    )+" m";
-
-  $("statCombo").textContent=
-    "x"+
-    Math.floor(
-      NR.bestCombo
-    );
-
-  const cars=[
-    "NEON X",
-    "VORTEX",
-    "PHANTOM"
-  ];
-
-  $("statCar").textContent=
-    cars[
-      NR.selectedCar
-    ];
-
-}
-
-/* ==========================================================
-   START GAME
-   ========================================================== */
-
-function playGame(){
-
-  initAudio();
-
-  if(
-    audioCtx &&
-    audioCtx.state==="suspended"
-  ){
-
-    audioCtx.resume();
-
-  }
-
-  hidePanels();
-
-  $("mainMenu")
-    .classList.add(
-      "hidden"
-    );
-
-  $("hud")
-    .classList.remove(
-      "hidden"
-    );
-
-  $("mobileControls")
-    .classList.remove(
-      "hidden"
-    );
-
-  resetGame();
-
-  running=true;
-  paused=false;
-
-  NR.games++;
-
-  saveData();
-
-  beep(520,.12);
-
-}
-
-/* ==========================================================
-   RESET GAME
-   ========================================================== */
-
-function resetGame(){
-
-  score=0;
-  runCoins=0;
-
-  combo=1;
-  comboTimer=0;
-
-  nitro=100;
-  lives=3;
-
-  distance=0;
-  speedKmh=0;
-
-  gameTime=0;
-
-  targetLane=1;
-
-  shake=0;
-  invincible=0;
-
-  nitroActive=false;
-
-  /* PLAYER */
-
-  player.position.set(
-    0,
-    0,
-    5
-  );
-
-  player.rotation.set(
-    0,
-    0,
-    0
-  );
-
-  player.visible=true;
-
-  /* TRAFFIC */
-
-  traffic.forEach(
-    (car,i)=>{
-
-      car.position.x=
-        laneX[
-          Math.floor(
-            Math.random()*3
-          )
-        ];
-
-      car.position.z=
-        -40-
-        Math.random()*650;
-
-    }
-  );
-
-  /* COINS */
-
-  coins3D.forEach(
-    coin=>{
-
-      coin.visible=true;
-
-      coin.position.x=
-        laneX[
-          Math.floor(
-            Math.random()*3
-          )
-        ];
-
-      coin.position.z=
-        -40-
-        Math.random()*700;
-
-    }
-  );
-
-  updateHUD();
-
-}
-
-/* ==========================================================
-   PAUSE
-   ========================================================== */
-
-function pauseGame(){
-
-  if(
-    !running ||
-    paused
-  ){
-
-    return;
-
-  }
-
-  paused=true;
-
-  $("pauseScreen")
-    .classList.remove(
-      "hidden"
-    );
-
-  beep(300,.08);
-
-}
-
-function resumeGame(){
-
-  $("pauseScreen")
-    .classList.add(
-      "hidden"
-    );
-
-  paused=false;
-
-}
-
-/* ==========================================================
-   MOVEMENT
-   ========================================================== */
-
-function moveLeft(){
-
-  if(
-    !running ||
-    paused
-  ){
-
-    return;
-
-  }
-
-  targetLane=
-    Math.max(
-      0,
-      targetLane-1
-    );
-
-  beep(260,.04);
-
-}
-
-function moveRight(){
-
-  if(
-    !running ||
-    paused
-  ){
-
-    return;
-
-  }
-
-  targetLane=
-    Math.min(
-      2,
-      targetLane+1
-    );
-
-  beep(300,.04);
-
-}
-
-function activateNitro(){
-
-  if(
-    !running ||
-    paused ||
-    nitro<=1
-  ){
-
-    return;
-
-  }
-
-  nitroActive=true;
-
-}
-
-function releaseNitro(){
-
-  nitroActive=false;
-
-}
-
-/* ==========================================================
-   KEYBOARD
-   ========================================================== */
-
-window.addEventListener(
-  "keydown",
-  e=>{
-
-    if(
-      e.key==="ArrowLeft" ||
-      e.key.toLowerCase()==="a"
-    ){
-
-      e.preventDefault();
-
-      moveLeft();
-
-    }
-
-    if(
-      e.key==="ArrowRight" ||
-      e.key.toLowerCase()==="d"
-    ){
-
-      e.preventDefault();
-
-      moveRight();
-
-    }
-
-    if(
-      e.code==="Space"
-    ){
-
-      e.preventDefault();
-
-      activateNitro();
-
-    }
-
-    if(
-      e.key==="Escape"
-    ){
-
-      e.preventDefault();
-
-      if(
-        running &&
-        !paused
-      ){
-
-        pauseGame();
-
+      // Box Collision Check
+      if(vehicle.invulnerable <= 0 && Math.abs(t.position.z - vehicle.mesh.position.z) < 3.2 && Math.abs(t.position.x - vehicle.x) < 1.6){
+        handleCrash();
       }
-
-    }
-
-  }
-);
-
-window.addEventListener(
-  "keyup",
-  e=>{
-
-    if(
-      e.code==="Space"
-    ){
-
-      releaseNitro();
-
-    }
-
-  }
-);
-
-/* ==========================================================
-   MOBILE
-   ========================================================== */
-
-$("leftBtn").addEventListener(
-  "pointerdown",
-  e=>{
-
-    e.preventDefault();
-
-    moveLeft();
-
-  }
-);
-
-$("rightBtn").addEventListener(
-  "pointerdown",
-  e=>{
-
-    e.preventDefault();
-
-    moveRight();
-
-  }
-);
-
-$("nitroBtn").addEventListener(
-  "pointerdown",
-  e=>{
-
-    e.preventDefault();
-
-    activateNitro();
-
-  }
-);
-
-$("nitroBtn").addEventListener(
-  "pointerup",
-  releaseNitro
-);
-
-$("nitroBtn").addEventListener(
-  "pointercancel",
-  releaseNitro
-);
-
-/* ==========================================================
-   SWIPE
-   ========================================================== */
-
-let touchStartX=0;
-let touchStartY=0;
-
-window.addEventListener(
-  "touchstart",
-  e=>{
-
-    if(!running)return;
-
-    const t=
-      e.changedTouches[0];
-
-    touchStartX=
-      t.clientX;
-
-    touchStartY=
-      t.clientY;
-
-  },
-  {passive:true}
-);
-
-window.addEventListener(
-  "touchend",
-  e=>{
-
-    if(!running)return;
-
-    const t=
-      e.changedTouches[0];
-
-    const dx=
-      t.clientX-
-      touchStartX;
-
-    const dy=
-      t.clientY-
-      touchStartY;
-
-    if(
-      Math.abs(dx)>45 &&
-      Math.abs(dx)>
-      Math.abs(dy)
-    ){
-
-      if(dx<0)
-        moveLeft();
-      else
-        moveRight();
-
-    }
-
-  },
-  {passive:true}
-);
-
-/* ==========================================================
-   SPEED
-   ========================================================== */
-
-function getBaseSpeed(){
-
-  let speed=32;
-
-  speed+=
-    NR.upgrades.engine*3;
-
-  speed+=
-    NR.upgrades.turbo*1.5;
-
-  return speed;
-
-}
-
-function getCurrentSpeed(){
-
-  let speed=
-    getBaseSpeed();
-
-  if(nitroActive){
-
-    speed+=
-      22+
-      NR.upgrades.nitro*4+
-      NR.upgrades.turbo*3;
-
-  }
-
-  return speed;
-
-}
-
-/* ==========================================================
-   MAIN GAME UPDATE
-   ========================================================== */
-
-function updateGame(dt){
-
-  gameTime+=dt;
-
-  /*
-   * BURADAKİ ÖNEMLİ DEĞİŞİKLİK:
-   * OYUNCU ARTIK GERÇEK İLERİ HAREKET
-   * HİSSİ ALIYOR.
-   */
-
-  const worldSpeed=
-    getCurrentSpeed();
-
-  speedKmh=
-    worldSpeed*
-    3.15;
-
-  distance+=
-    worldSpeed*
-    dt;
-
-  score+=
-    worldSpeed*
-    dt*
-    .9;
-
-  /* ======================
-     PLAYER FORWARD MOTION
-  ====================== */
-
-  /*
-   * Araç sürekli ileri doğru küçük
-   * bir dünya hareketi yapıyor.
-   * Kamera da aracı takip ediyor.
-   */
-
-  player.position.z=
-    5+
-    Math.sin(
-      gameTime*2
-    )*.015;
-
-  /*
-   * ŞERİT
-   */
-
-  const targetX=
-    laneX[targetLane];
-
-  const laneMoveSpeed=
-    8+
-    NR.upgrades.brakes*1.5+
-    NR.upgrades.tires;
-
-  player.position.x=
-    THREE.MathUtils.lerp(
-      player.position.x,
-      targetX,
-      Math.min(
-        1,
-        dt*laneMoveSpeed
-      )
-    );
-
-  player.rotation.z=
-    (
-      targetX-
-      player.position.x
-    )*
-    -.045;
-
-  /*
-   * HIZLANMA GÖRSELİ
-   */
-
-  const targetScale=
-    nitroActive
-    ?1.08
-    :1;
-
-  player.scale.x=
-    THREE.MathUtils.lerp(
-      player.scale.x,
-      targetScale,
-      dt*5
-    );
-
-  player.scale.y=
-    THREE.MathUtils.lerp(
-      player.scale.y,
-      nitroActive
-      ?1.02
-      :1,
-      dt*5
-    );
-
-  player.scale.z=
-    THREE.MathUtils.lerp(
-      player.scale.z,
-      nitroActive
-      ?1.12
-      :1,
-      dt*5
-    );
-
-  /* ======================
-     NITRO
-  ====================== */
-
-  if(nitroActive){
-
-    nitro-=
-      dt*
-      (
-        9-
-        NR.upgrades.nitro*1.1
-      );
-
-    if(nitro<=0){
-
-      nitro=0;
-
-      nitroActive=false;
-
-    }
-
-  }else{
-
-    nitro+=
-      dt*
-      (
-        2+
-        NR.upgrades.nitro*.35
-      );
-
-    nitro=
-      Math.min(
-        100,
-        nitro
-      );
-
-  }
-
-  /* ======================
-     COMBO
-  ====================== */
-
-  comboTimer-=dt;
-
-  if(
-    comboTimer<=0 &&
-    combo>1
-  ){
-
-    combo=
-      Math.max(
-        1,
-        combo-dt*.35
-      );
-
-  }
-
-  /* ======================
-     INVINCIBLE
-  ====================== */
-
-  if(invincible>0){
-
-    invincible-=dt;
-
-    player.visible=
-      Math.floor(
-        invincible*12
-      )%2===0;
-
-  }else{
-
-    player.visible=true;
-
-  }
-
-  /* ======================
-     TRAFFIC
-  ====================== */
-
-  for(
-    const car of traffic
-  ){
-
-    /*
-     * TRAFİK BİZİM ÜZERİMİZE GELİYOR.
-     * BU, GERÇEK YOLCULUK HİSSİNİ VERİYOR.
-     */
-
-    car.position.z+=
-      worldSpeed*
-      dt*
-      car.userData.speed;
-
-    if(
-      car.position.z>25
-    ){
-
-      car.position.z=
-        -500-
-        Math.random()*300;
-
-      car.position.x=
-        laneX[
-          Math.floor(
-            Math.random()*3
-          )
-        ];
-
-    }
-
-    checkCollision(car);
-
-  }
-
-  /* ======================
-     COINS
-  ====================== */
-
-  for(
-    const coin of coins3D
-  ){
-
-    if(!coin.visible)
-      continue;
-
-    coin.rotation.y+=
-      dt*4;
-
-    coin.rotation.z+=
-      dt*2;
-
-    coin.position.y=
-      1.3+
-      Math.sin(
-        gameTime*5+
-        coin.position.z
-      )*.15;
-
-    coin.position.z+=
-      worldSpeed*
-      dt;
-
-    if(
-      coin.position.z>25
-    ){
-
-      coin.position.z=
-        -500-
-        Math.random()*300;
-
-      coin.position.x=
-        laneX[
-          Math.floor(
-            Math.random()*3
-          )
-        ];
-
-    }
-
-    checkCoin(coin);
-
-  }
-
-  /* ======================
-     ROAD DASHES
-  ====================== */
-
-  for(
-    const dash of roadDashes
-  ){
-
-    dash.position.z+=
-      worldSpeed*
-      dt;
-
-    if(
-      dash.position.z>30
-    ){
-
-      dash.position.z=
-        -1100;
-
-    }
-
-  }
-
-  /* ======================
-     CITY
-  ====================== */
-
-  for(
-    const building of city
-  ){
-
-    building.position.z+=
-      worldSpeed*
-      dt*
-      .72;
-
-    if(
-      building.position.z>50
-    ){
-
-      building.position.z=
-        -1100-
-        Math.random()*150;
-
-    }
-
-  }
-
-  /* ======================
-     RAIN
-  ====================== */
-
-  if(
-    NR.settings.rain
-  ){
-
-    for(
-      const rain of rainLines
-    ){
-
-      rain.position.z+=
-        worldSpeed*
-        dt;
-
-      if(
-        rain.position.z>30
-      ){
-
-        rain.position.z=
-          -600;
-
+    });
+
+    // Coins Motion & Pickup
+    coinsList.forEach(c => {
+      c.rotation.z += delta * 3;
+      c.position.z += delta * (vehicle.speed * 0.3);
+
+      if(Math.abs(c.position.z - vehicle.mesh.position.z) < 2.2 && Math.abs(c.position.x - vehicle.x) < 1.4){
+        coins += 10;
+        score += 100;
+        playSoundFX('coin');
+        c.position.z = -200 - Math.random() * 100;
+        c.position.x = vehicle.lanes[Math.floor(Math.random()*3)];
+      }else if(c.position.z > 10){
+        c.position.z = -200 - Math.random() * 100;
+        c.position.x = vehicle.lanes[Math.floor(Math.random()*3)];
       }
+    });
 
+    // Invulnerability Flicker
+    if(vehicle.invulnerable > 0){
+      vehicle.invulnerable -= delta;
+      vehicle.mesh.visible = Math.floor(clock.getElapsedTime() * 15) % 2 === 0;
+    }else{
+      vehicle.mesh.visible = true;
     }
 
-  }
-
-  /* ======================
-     CAMERA FOLLOW
-  ====================== */
-
-  let shakeAmount=0;
-
-  if(
-    NR.settings.shake &&
-    shake>0
-  ){
-
-    shakeAmount=
-      shake;
-
-    shake*=.88;
-
-    if(
-      shake<.01
-    ){
-
-      shake=0;
-
+    // Rain Motion
+    const pos = rainSystem.geometry.attributes.position.array;
+    for(let i=1; i<pos.length; i+=3){
+      pos[i] -= delta * 40;
+      if(pos[i] < 0) pos[i] = 25;
     }
-
-  }
-
-  camera.position.x=
-    THREE.MathUtils.lerp(
-      camera.position.x,
-      player.position.x*.32,
-      dt*5
-    )+
-    (
-      Math.random()-.5
-    )*
-    shakeAmount;
-
-  camera.position.y=
-    5.2+
-    (
-      Math.random()-.5
-    )*
-    shakeAmount;
-
-  camera.position.z=
-    10+
-    (
-      Math.random()-.5
-    )*
-    shakeAmount;
-
-  camera.lookAt(
-    player.position.x*.18,
-    1,
-    -32
-  );
-
-  /* ======================
-     PARTICLES
-  ====================== */
-
-  updateParticles(dt);
-
-  /* ======================
-     HUD
-  ====================== */
-
-  updateHUD();
-
-}
-
-/* ==========================================================
-   COLLISION
-   ========================================================== */
-
-function checkCollision(car){
-
-  if(invincible>0)
-    return;
-
-  const dx=
-    Math.abs(
-      player.position.x-
-      car.position.x
-    );
-
-  const dz=
-    Math.abs(
-      player.position.z-
-      car.position.z
-    );
-
-  if(
-    dx<1.8 &&
-    dz<3
-  ){
-
-    hit(car);
-
-  }
-
-}
-
-function hit(car){
-
-  lives--;
-
-  invincible=1.8;
-
-  shake=
-    NR.settings.shake
-    ?.65
-    :0;
-
-  particleBurst(
-    player.position,
-    0xff1493
-  );
-
-  beep(120,.25);
-
-  car.position.z=
-    -500-
-    Math.random()*200;
-
-  combo=
-    Math.max(
-      1,
-      combo*.5
-    );
-
-  if(lives<=0){
-
-    gameOver();
-
-  }
-
-}
-
-/* ==========================================================
-   COIN
-   ========================================================== */
-
-function checkCoin(coin){
-
-  const dx=
-    Math.abs(
-      player.position.x-
-      coin.position.x
-    );
-
-  const dz=
-    Math.abs(
-      player.position.z-
-      coin.position.z
-    );
-
-  if(
-    dx<1.8 &&
-    dz<2.7
-  ){
-
-    coin.visible=false;
-
-    runCoins++;
-
-    NR.coins++;
-
-    combo=
-      Math.min(
-        10,
-        combo+.5
-      );
-
-    comboTimer=3;
-
-    score+=
-      100*
-      combo;
-
-    particleBurst(
-      coin.position,
-      0xffd84a
-    );
-
-    beep(
-      700+
-      combo*40,
-      .08
-    );
-
-    setTimeout(
-      ()=>{
-        coin.visible=true;
-      },
-      1200
-    );
-
-  }
-
-}
-
-/* ==========================================================
-   HUD
-   ========================================================== */
-
-function updateHUD(){
-
-  $("scoreText").textContent=
-    Math.floor(score);
-
-  $("speedText").textContent=
-    Math.floor(speedKmh);
-
-  $("coinsText").textContent=
-    Math.floor(runCoins);
-
-  $("comboText").textContent=
-    "x"+
-    combo.toFixed(1);
-
-  $("livesText").textContent=
-    "♥".repeat(
-      Math.max(
-        0,
-        lives
-      )
-    )+
-    "♡".repeat(
-      Math.max(
-        0,
-        3-lives
-      )
-    );
-
-  $("nitroFill").style.width=
-    nitro+"%";
-
-}
-
-/* ==========================================================
-   GAME OVER
-   ========================================================== */
-
-function gameOver(){
-
-  running=false;
-  paused=false;
-  nitroActive=false;
-
-  if(
-    score>
-    NR.best
-  ){
-
-    NR.best=
-      score;
-
-  }
-
-  NR.distance+=
-    distance;
-
-  NR.bestCombo=
-    Math.max(
-      NR.bestCombo,
-      combo
-    );
-
-  saveData();
-
-  $("hud")
-    .classList.add(
-      "hidden"
-    );
-
-  $("mobileControls")
-    .classList.add(
-      "hidden"
-    );
-
-  $("finalScore").textContent=
-    Math.floor(score);
-
-  $("finalCoins").textContent=
-    Math.floor(runCoins);
-
-  $("finalDistance").textContent=
-    Math.floor(distance)+
-    " m";
-
-  $("finalCombo").textContent=
-    "x"+
-    combo.toFixed(1);
-
-  $("gameOver")
-    .classList.remove(
-      "hidden"
-    );
-
-  beep(90,.5);
-
-}
-
-/* ==========================================================
-   MAIN LOOP
-   ========================================================== */
-
-let lastTime=
-  performance.now();
-
-function loop(time){
-
-  requestAnimationFrame(
-    loop
-  );
-
-  const dt=
-    Math.min(
-      (time-lastTime)/1000,
-      .05
-    );
-
-  lastTime=time;
-
-  if(
-    running &&
-    !paused
-  ){
-
-    updateGame(dt);
-
-  }
-
-  renderer.render(
-    scene,
-    camera
-  );
-
-}
-
-/* ==========================================================
-   MAIN MENU CAMERA
-   ========================================================== */
-
-function menuCamera(){
-
-  camera.position.set(
-    0,
-    5.2,
-    10
-  );
-
-  camera.lookAt(
-    0,
-    1,
-    -30
-  );
-
-}
-
-/* ==========================================================
-   MAIN MENU
-   ========================================================== */
-
-function goMainMenu(){
-
-  running=false;
-  paused=false;
-  nitroActive=false;
-
-  hidePanels();
-
-  $("hud")
-    .classList.add(
-      "hidden"
-    );
-
-  $("mobileControls")
-    .classList.add(
-      "hidden"
-    );
-
-  $("mainMenu")
-    .classList.remove(
-      "hidden"
-    );
-
-  menuCamera();
-
-  updateMenuUI();
-
-}
-
-/* ==========================================================
-   RESET SAVE
-   ========================================================== */
-
-function resetSave(){
-
-  if(
-    !confirm(
-      "Tüm ilerleme silinsin mi?"
-    )
-  ){
-
-    return;
-
-  }
-
-  localStorage.removeItem(
-    SAVE_KEY
-  );
-
-  NR=
-    cloneDefault();
-
-  updateMenuUI();
-  updateSettingsUI();
-  updateGarage();
-  updateUpgrades();
-  updateStats();
-
-  alert(
-    "Kayıt sıfırlandı."
-  );
-
-}
-
-/* ==========================================================
-   RESIZE
-   ========================================================== */
-
-window.addEventListener(
-  "resize",
-  ()=>{
-
-    camera.aspect=
-      innerWidth/
-      innerHeight;
-
+    rainSystem.geometry.attributes.position.needsUpdate = true;
+
+    // Dynamic Camera Tracking & Shake Effect
+    camera.position.x = vehicle.x * 0.35;
+    camera.fov = 60 + speedRatio * 15; // Speed FOV expansion
     camera.updateProjectionMatrix();
 
-    renderer.setSize(
-      innerWidth,
-      innerHeight
-    );
-
+    // Stats & Audio
+    distance += delta * vehicle.speed * 0.2;
+    score += Math.floor(delta * vehicle.speed);
+    updateEngineAudio(speedRatio, vehicle.nitroActive);
+    updateHUD();
   }
-);
 
-/* ==========================================================
-   START
-   ========================================================== */
+  composer.render();
+}
 
-initThree();
+function handleCrash(){
+  playSoundFX('crash');
+  vehicle.health--;
+  vehicle.invulnerable = 2.0;
+  if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
 
-updateMenuUI();
+  if(vehicle.health <= 0){
+    endGame();
+  }
+}
 
-updateSettingsUI();
+/* 7. STATE & UI MANAGERS */
+function startGame(){
+  initAudioEngine();
 
-updateGarage();
+  vehicle.x = 0;
+  vehicle.targetX = 0;
+  vehicle.lane = 1;
+  vehicle.speed = 0;
+  vehicle.nitro = 100;
+  vehicle.health = 3;
+  vehicle.invulnerable = 0;
 
-updateUpgrades();
+  score = 0; coins = 0; distance = 0; maxAchievedSpeed = 0;
+  isPlaying = true; isPaused = false;
 
-updateStats();
+  $('mainMenu').classList.add('hidden');
+  $('gameOver').classList.add('hidden');
+  $('hud').classList.remove('hidden');
+  if('ontouchstart' in window) $('mobileControls').classList.remove('hidden');
+}
 
-menuCamera();
+function endGame(){
+  isPlaying = false;
+  $('hud').classList.add('hidden');
+  $('mobileControls').classList.add('hidden');
 
-requestAnimationFrame(
-  loop
-);
+  $('resScore').innerText = score;
+  $('resCoins').innerText = coins;
+  $('resDist').innerText = Math.floor(distance) + 'm';
+  $('resSpeed').innerText = maxAchievedSpeed + ' KM/H';
 
+  $('gameOver').classList.remove('hidden');
+}
+
+function togglePause(){
+  isPaused = !isPaused;
+}
+
+function updateHUD(){
+  $('scoreVal').innerText = score;
+  $('speedVal').innerText = Math.floor(vehicle.speed);
+  $('coinVal').innerText = coins;
+  $('healthVal').innerText = '♥'.repeat(Math.max(0, vehicle.health));
+  $('nitroFill').style.width = vehicle.nitro + '%';
+}
+
+function onWindowResize(){
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+}
+
+// Launch Engine on Load
+window.onload = initEngine;
 </script>
-
 </body>
 </html>
