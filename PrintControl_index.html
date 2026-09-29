@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrintControl — 3D Printer Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0b0f14;color:#eaf0f6}
+.container{max-width:1100px;margin:auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+h1{margin:0;font-size:28px}
+.badge{padding:8px 12px;border-radius:999px;background:#12351f;color:#55e889;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#111821;border:1px solid #26313d;border-radius:16px;padding:18px;box-shadow:0 8px 30px #0004}
+.card h2{font-size:16px;margin:0 0 15px;color:#aebdca}
+.temp{font-size:34px;font-weight:700}
+.small{color:#81909d;font-size:13px}
+.axis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+button{border:1px solid #344250;background:#18222d;color:#fff;padding:12px;border-radius:10px;cursor:pointer;font-weight:600}
+button:hover{background:#22303d}
+.home{width:100%;margin-top:10px}
+.stop{background:#431c20;border-color:#713038}
+.stop:hover{background:#63252b}
+.console{height:150px;overflow:auto;background:#080b0f;border-radius:10px;padding:12px;font-family:monospace;font-size:12px;color:#8fe3a9}
+input{width:100%;padding:12px;background:#0a0e13;border:1px solid #344250;color:white;border-radius:10px;margin:8px 0}
+.send{width:100%}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.container{padding:14px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div>
+    <div class="small">DIY PROJECT</div>
+    <h1>🖨️ PrintControl</h1>
+  </div>
+  <div class="badge">● SIMULATION ONLINE</div>
+</header>
+
+<div class="grid">
+  <section class="card">
+    <h2>🌡️ Nozzle</h2>
+    <div class="temp" id="nozzle">205°C</div>
+    <div class="small">Target: <span id="nozzleTarget">205</span>°C</div>
+  </section>
+
+  <section class="card">
+    <h2>🔥 Bed</h2>
+    <div class="temp" id="bed">60°C</div>
+    <div class="small">Target: <span id="bedTarget">60</span>°C</div>
+  </section>
+
+  <section class="card">
+    <h2>📡 Position</h2>
+    <div class="temp" style="font-size:22px" id="pos">X 0.00 · Y 0.00 · Z 5.00</div>
+    <div class="small">Simulated coordinates</div>
+  </section>
+
+  <section class="card">
+    <h2>🎮 Movement</h2>
+    <div class="axis">
+      <button onclick="move('Y',10)">Y +</button>
+      <button onclick="move('Z',1)">Z +</button>
+      <button onclick="move('X',10)">X +</button>
+      <button onclick="move('X',-10)">X −</button>
+      <button onclick="move('Z',-1)">Z −</button>
+      <button onclick="move('Y',-10)">Y −</button>
+    </div>
+    <button class="home" onclick="home()">🏠 HOME</button>
+    <button class="home stop" onclick="stop()">⏹ STOP</button>
+  </section>
+
+  <section class="card">
+    <h2>↔️ Extruder</h2>
+    <div class="axis">
+      <button onclick="extrude(1)">E +1</button>
+      <button onclick="extrude(5)">E +5</button>
+      <button onclick="extrude(10)">E +10</button>
+    </div>
+    <div class="small" style="margin-top:12px">Extruded: <span id="e">0</span> mm</div>
+  </section>
+
+  <section class="card">
+    <h2>⌨️ G-code</h2>
+    <input id="cmd" placeholder="Örn: G28">
+    <button class="send" onclick="send()">SEND COMMAND</button>
+  </section>
+
+  <section class="card" style="grid-column:1/-1">
+    <h2>📟 Console</h2>
+    <div class="console" id="console"></div>
+  </section>
+</div>
+</div>
+
+<script>
+let p={X:0,Y:0,Z:5,E:0};
+const logBox=document.getElementById("console");
+
+function log(t){
+  logBox.innerHTML += `<div>&gt; ${t}</div>`;
+  logBox.scrollTop=logBox.scrollHeight;
+}
+function update(){
+  document.getElementById("pos").textContent =
+    `X ${p.X.toFixed(2)} · Y ${p.Y.toFixed(2)} · Z ${p.Z.toFixed(2)}`;
+  document.getElementById("e").textContent=p.E.toFixed(2);
+}
+function move(a,v){
+  p[a]=Math.max(0,Math.min(200,p[a]+v));
+  log(`G1 ${a}${p[a].toFixed(2)} F1200`);
+  update();
+}
+function extrude(v){
+  p.E+=v;
+  log(`G1 E${p.E.toFixed(2)} F60`);
+  update();
+}
+function home(){
+  p.X=0;p.Y=0;p.Z=0;
+  log("G28 → HOME");
+  update();
+}
+function stop(){log("M112 → EMERGENCY STOP (simulation)");}
+function send(){
+  const x=document.getElementById("cmd");
+  if(!x.value.trim())return;
+  log(x.value.trim());
+  if(x.value.trim().toUpperCase()==="G28") home();
+  x.value="";
+}
+log("PrintControl started");
+log("Simulation mode active");
+log("Printer status: ONLINE");
+update();
+</script>
+</body>
+</html>
